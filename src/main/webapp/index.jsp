@@ -112,6 +112,8 @@
       </div>
 
     </div>
+    
+    
 
     <nav class="navbar navbar-default navbar-fixed-bottom navbar-cor">
       <div class="container-fluid">
