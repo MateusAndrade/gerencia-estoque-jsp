@@ -1,3 +1,5 @@
+/*----------------------------------------- DDL ---------------------------------------------*/
+
 CREATE DATABASE estoque
 
 USE estoque
@@ -12,16 +14,12 @@ CREATE TABLE funcionarios(
     senha INT NOT NULL
 )
 
-INSERT INTO funcionarios( nome_funcionario,cpf_funcionario,rg_funcionario,telefone_funcionario,email_funcionario,senha)	VALUES ('Mateus Andrade','602.960.089-31','36.930.498-6','(11)12345-1234','email@email',1234)
-
 CREATE TABLE produtos(
 	codigo_produto INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome_produto VARCHAR(20) NOT NULL,
     quantidade_produto INT CHECK ( quantidade_produto >= 0 ),
 	preco_produto FLOAT CHECK ( preco_produto >= 0 )
 )
-
-INSERT INTO produtos(nome_produto, quantidade_produto,preco_produto) VALUES ('Monitor',50,12.50)
 
 CREATE TABLE requisicao(
 	codigo_requisicao INT NOT NULL AUTO_INCREMENT,
@@ -41,3 +39,95 @@ CREATE TABLE itensRequisicao(
     FOREIGN KEY( codigo_produto ) REFERENCES produtos( codigo_produto ),
     FOREIGN KEY( codigo_requisicao ) REFERENCES requisicao( codigo_requisicao )
 )
+
+/*----------------------------------------- DDL ---------------------------------------------*/
+
+/*----------------------------------------- DML ---------------------------------------------*/
+
+/* DML Para Funcionario */
+
+DROP PROCEDURE IF EXISTS inserirFuncionario;
+
+DELIMITER //
+
+CREATE PROCEDURE inserirFuncionario(IN nome VARCHAR(50), IN cpf VARCHAR(20), IN rg VARCHAR(20), IN fone VARCHAR(15), IN email VARCHAR(50), IN senha INT)
+BEGIN
+	INSERT INTO funcionarios(nome_funcionario,cpf_funcionario,rg_funcionario,telefone_funcionario,email_funcionario,senha) 
+    VALUES(nome,cpf,rg,fone,email,senha);
+END//
+
+CALL inserirFuncionario('Lucas','1123','1213','1213','EMAIL',21);
+
+DROP PROCEDURE IF EXISTS excluirFuncionario();
+
+DELIMITER //
+
+CREATE PROCEDURE excluirFuncionario( IN cod INT )
+BEGIN
+	DELETE FROM funcionarios WHERE codigo_funcionario = 4;
+END//
+
+CALL excluirFuncionario(2);
+
+
+DROP PROCEDURE IF EXISTS consultarFuncionarioCodigo;
+
+DELIMITER //
+
+CREATE PROCEDURE consultarFuncionarioCodigo( IN cod INT )
+BEGIN
+	SELECT codigo_funcionario,nome_funcionario,cpf_funcionario,rg_funcionario,telefone_funcionario,email_funcionario FROM funcionarios WHERE codigo_funcionario = cod;
+END//
+
+CALL consultarFuncionarioCodigo(1);
+
+
+DROP PROCEDURE IF EXISTS consultarFuncionarioNome;
+
+DELIMITER //
+
+CREATE PROCEDURE consultarFuncionarioNome( IN nome VARCHAR(50) )
+BEGIN
+	SELECT codigo_funcionario,nome_funcionario,cpf_funcionario,rg_funcionario,telefone_funcionario,email_funcionario FROM funcionarios WHERE nome_funcionario LIKE nome;
+END//
+
+CALL consultarFuncionarioNome('Mateus');
+
+
+DROP PROCEDURE IF EXISTS consultarFuncionarioTabela;
+
+DELIMITER //
+
+CREATE PROCEDURE consultarFuncionarioTabela()
+BEGIN
+	SELECT codigo_funcionario,nome_funcionario,cpf_funcionario,email_funcionario FROM funcionarios;
+END//
+
+CALL consultarFuncionarioTabela();
+
+
+DROP PROCEDURE IF EXISTS updateFuncionario;
+
+DELIMITER //
+
+CREATE PROCEDURE updateFuncionario(IN codigo INT, IN nome VARCHAR(50), IN cpf VARCHAR(20), IN rg VARCHAR(20), IN fone VARCHAR(15), IN email VARCHAR(50), IN senha INT)
+BEGIN
+	UPDATE funcionarios
+    SET nome_funcionario = nome, cpf_funcionario = cpf , rg_funcionario = rg, rg_funcionario = fone, email_funcionario = email, senha = senha
+    WHERE codigo_funcionario = codigo;
+END//
+
+DROP PROCEDURE IF EXISTS consultarFuncionarioLogin;
+
+DELIMITER //
+
+CREATE PROCEDURE consultarFuncionarioLogin( IN cpf VARCHAR(20), IN senha INT)
+BEGIN
+	SELECT codigo_funcionario,nome_funcionario,cpf_funcionario,rg_funcionario,telefone_funcionario,email_funcionario FROM funcionarios WHERE cpf_funcionario = cpf AND senha = senha;
+END//
+
+/* Adicionar handler para manipular mensagem http://www.mysqltutorial.org/mysql-error-handling-in-stored-procedures/ */
+
+/* DML Para Funcionario */
+
+/*----------------------------------------- DML ---------------------------------------------*/
