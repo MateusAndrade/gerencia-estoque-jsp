@@ -22,9 +22,9 @@ public class DBUtil {
 			System.out.println(e.getMessage());
 		}
 		if(conn != null){
-			System.out.println("Conectado");
+			System.out.println("Conectado com Sucesso");
 		}else {
-			System.out.println("Nao");
+			System.out.println("Deu Ruim");
 		}
 		return conn;
 	}

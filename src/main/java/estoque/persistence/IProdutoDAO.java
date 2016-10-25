@@ -9,7 +9,7 @@ public interface IProdutoDAO {
 
 	public void adicionar( Produto prod ) throws SQLException;
 	public void excluir( String nome ) throws SQLException;
-	public Produto alterar( String nome ) throws SQLException;
+	public Produto alterar( int codigo ) throws SQLException;
 	public List<Produto> listarProdutos( String nome ) throws SQLException;
 	
 }

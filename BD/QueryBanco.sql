@@ -24,21 +24,18 @@ CREATE TABLE produtos(
 CREATE TABLE requisicao(
 	codigo_requisicao INT NOT NULL AUTO_INCREMENT,
     codigo_funcionario INT NOT NULL,
+    codigo_produto INT NOT NULL,
+    qtd_requisicao INT NOT NULL CHECK( qtd_requisicao > 0 ),
     data_requisicao DATE NOT NULL,
     hora_requisicao TIME NOT NULL,
+    status_requisicao CHAR(1) NOT NULL,
 	PRIMARY KEY ( codigo_requisicao ),
-    FOREIGN KEY( codigo_funcionario ) REFERENCES funcionarios( codigo_funcionario )
+    FOREIGN KEY( codigo_funcionario ) REFERENCES funcionarios( codigo_funcionario ),
+    FOREIGN KEY( codigo_produto ) REFERENCES produtos( codigo_produto )
 )
 
-CREATE TABLE itensRequisicao(
-	codigo_itens_requisicao INT NOT NULL AUTO_INCREMENT,
-	codigo_produto INT NOT NULL,
-    codigo_requisicao INT NOT NULL,
-    qtd_irequisicao INT NOT NULL CHECK( qtd_irequisicao > 0 ),
-    PRIMARY KEY( codigo_itens_requisicao ),
-    FOREIGN KEY( codigo_produto ) REFERENCES produtos( codigo_produto ),
-    FOREIGN KEY( codigo_requisicao ) REFERENCES requisicao( codigo_requisicao )
-)
+DROP TABLE requisicao
+
 
 /*----------------------------------------- DDL ---------------------------------------------*/
 
