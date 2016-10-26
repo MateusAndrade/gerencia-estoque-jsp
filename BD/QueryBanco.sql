@@ -127,4 +127,16 @@ END//
 
 /* DML Para Funcionario */
 
+DROP PROCEDURE IF EXISTS inserirProduto;
+
+DELIMITER //
+
+CREATE PROCEDURE inserirProduto(IN nome VARCHAR(20), IN quantidade INT, IN preco FLOAT )
+BEGIN
+	INSERT INTO produtos(nome_produto,quantidade_produto,preco_produto) 
+    VALUES(nome,quantidade,preco);
+END//
+
+CALL inserirProduto('mATEUS',50,50);
+
 /*----------------------------------------- DML ---------------------------------------------*/
