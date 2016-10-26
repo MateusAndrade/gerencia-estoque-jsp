@@ -23,7 +23,7 @@
         </div>
 
         <ul class="nav navbar-nav">
-          <li><a href="principal_funcionario.jsp">Funcionários</a></li>
+          <li><a href="${pageContext.request.contextPath}/funcionarios">Funcionários</a></li>
           <li><a class="active" href="principal_produto.jsp">Produtos</a></li>
           <li><a href="principal_requisicoes.jsp">Requisições</a></li>
         </ul>
