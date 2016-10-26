@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<%@page import="estoque.persistence.DBUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -17,7 +16,7 @@
     <nav class="navbar navbar-default navbar-fixed-top navbar-cor">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="">
             <img class="alinha-icone-navbar" src="imgs/icone-navbar.png" height="35">
           </a>
           <p class="navbar-text">Gerencia Estoque Show</p>
@@ -25,7 +24,7 @@
 
         <ul class="nav navbar-nav">
           <li><a href="principal_funcionario.jsp">Funcionários</a></li>
-          <li><a href="principal_produto.jsp">Produtos</a></li>
+          <li><a class="active" href="principal_produto.jsp">Produtos</a></li>
           <li><a href="principal_requisicoes.jsp">Requisições</a></li>
         </ul>
 

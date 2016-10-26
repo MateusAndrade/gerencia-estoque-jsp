@@ -6,32 +6,44 @@
 
 	<display-name>GerenciaEstoque</display-name>
 
-	<!-- Servlet Default -->
-
 	<servlet>
-      <servlet-name>Index</servlet-name>
-      <jsp-file>/index.jsp</jsp-file>
- 	</servlet>
-
-	 <servlet-mapping>
-	      <servlet-name>Index</servlet-name>
-	      <url-pattern></url-pattern>
-	 </servlet-mapping>
-	 
-	<!-- Servlet Default -->
- 	
-	<!-- Servlet Produto -->
+		<servlet-name>paginaProdutos</servlet-name>
+		<jsp-file>/principal_produto.jsp</jsp-file>
+	</servlet>
 	
- 	<servlet>
-      <servlet-name>ServletProduto</servlet-name>
-      <servlet-class>estoque.controller.ServletProduto</servlet-class>
- 	</servlet>
- 		 
 	<servlet-mapping>
-	  <servlet-name>ServletProduto</servlet-name>
-	  <url-pattern>/produto</url-pattern>
+		<servlet-name>paginaProdutos</servlet-name>
+		<url-pattern>/produtos</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>paginaFuncionarios</servlet-name>
+		<jsp-file>/principal_funcionario.jsp</jsp-file>
+	</servlet>	
+	
+	<servlet-mapping>
+		<servlet-name>paginaFuncionarios</servlet-name>
+		<url-pattern>/funcionarios</url-pattern>
 	</servlet-mapping>
 
-	<!-- Servlet Produto -->
-
+	<servlet>
+		<servlet-name>paginaRequisicao</servlet-name>
+		<jsp-file>/principal_requisicao.jsp</jsp-file>
+	</servlet>	
+	
+	<servlet-mapping>
+		<servlet-name>paginaRequisicao</servlet-name>
+		<url-pattern>/principal_requisicao.jsp</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>rotaDefault</servlet-name>
+		<jsp-file>/index.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>rotaDefault</servlet-name>
+		<url-pattern>/dashboard</url-pattern>
+	</servlet-mapping>
+	
 </web-app>

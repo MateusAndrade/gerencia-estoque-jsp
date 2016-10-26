@@ -51,7 +51,7 @@
 
         <div class="col-xs-12">
 
-          <form action="ControllerProduto" method="get">
+          <form action="ControllerProduto" method="post">
             <div class="form-group">
               <div class="row">
                 <div class="col-xs-12">
@@ -69,7 +69,7 @@
                 </div>
                 <div class="col-xs-6">
                   <label for="preco">Preço:</label>
-                  <input type="number" class="form-control" name="preco" placeholder="Insira um Preço">
+                  <input type="text" class="form-control" name="preco" placeholder="Insira um Preço">
                 </div>    
               </div>
             </div>
