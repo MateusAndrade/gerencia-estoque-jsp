@@ -2,6 +2,7 @@ package estoque.persistence;
 
 import java.lang.invoke.SerializedLambda;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -20,7 +21,14 @@ public class ProdutoDAOImp implements IProdutoDAO {
 	
 	@Override
 	public void adicionar(Produto prod) throws SQLException {
-		// TODO Auto-generated method stub
+		String sql = "Call inserirProduto(?,?,?);";
+		
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, prod.getNome());
+		ps.setInt(2, prod.getQuantidade());
+		ps.setDouble(3, prod.getPreco());
+		ps.execute();
+		ps.close();		
 		
 	}
 

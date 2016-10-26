@@ -1,13 +1,18 @@
 package estoque.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import estoque.model.Produto;
 import estoque.persistence.DBUtil;
+import estoque.persistence.IProdutoDAO;
+import estoque.persistence.ProdutoDAOImp;
 
 @WebServlet("/ControllerProduto")
 public class ServletProduto extends HttpServlet {
@@ -15,18 +20,26 @@ public class ServletProduto extends HttpServlet {
 
     public ServletProduto() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DBUtil con = new DBUtil();
-		con.getConnection();
+		IProdutoDAO produtoDAO =  new ProdutoDAOImp();
+		Produto prod = new Produto();
+		prod.setNome(request.getParameter("nome"));
+		prod.setPreco(Double.parseDouble(request.getParameter("preco")));
+		prod.setQuantidade(Integer.parseInt(request.getParameter("quantidade")));
 		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		try {
+			produtoDAO.adicionar(prod);
+			response.sendRedirect("principal_produto.jsp");
+		} catch (SQLException e) {
+			e.printStackTrace();;
+		}
+		
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
