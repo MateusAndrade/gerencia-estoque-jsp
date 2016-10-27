@@ -9,8 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.taglibs.standard.lang.jstl.IntegerLiteral;
+
+import com.google.gson.Gson;
 
 import estoque.model.Produto;
 import estoque.persistence.DBUtil;
@@ -23,22 +26,17 @@ public class ServletProduto extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	IProdutoDAO produtoDAO =  new ProdutoDAOImp();
 	Produto prod = new Produto();
+	Gson gson =  new Gson();
 	
     public ServletProduto() {
         super();
     }
 	  	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
-		try {
-			if( request.getParameter("codigo") != null){
-				System.out.println("Show");
-				doDelete(request, response);
-			}  else {			
-			    request.setAttribute("produtos",produtoDAO.listarProdutos());
-	            request.getRequestDispatcher("principal_produto.jsp").forward(request, response);	
-	        }	
+		try{ 
+			request.setAttribute("produtos",produtoDAO.listarProdutos());
+	        request.getRequestDispatcher("principal_produto.jsp").forward(request, response);	
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -52,16 +50,23 @@ public class ServletProduto extends HttpServlet {
 			response.sendRedirect("ControllerProduto");
 		} catch (SQLException e) {
 			e.printStackTrace();;
-		}		
+		}					
 	}
 
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		try {
+			prod.setNome(request.getParameter("nome"));
+			prod.setPreco(Double.parseDouble(request.getParameter("preco")));
+			prod.setQuantidade(Integer.parseInt(request.getParameter("quantidade")));
+			produtoDAO.alterar(prod);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			System.out.println(request.getParameter("codigo"));
 			prod.setCodigo(Integer.parseInt(request.getParameter("codigo")));
 			produtoDAO.excluir(prod);
 		} catch (SQLException e) {

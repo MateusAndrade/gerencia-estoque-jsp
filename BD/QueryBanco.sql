@@ -152,4 +152,16 @@ END//
 CALL excluirProduto(13);
 
 
+DROP PROCEDURE IF EXISTS consultaProduto;
+
+DELIMITER //
+
+CREATE PROCEDURE consultaProduto( IN cod INT )
+BEGIN
+	SELECT * FROM produtos WHERE codigo_produto = cod;
+END//
+
+CALL consultaProduto(7);
+
+
 /*----------------------------------------- DML ---------------------------------------------*/

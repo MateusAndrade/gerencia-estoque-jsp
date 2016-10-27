@@ -72,7 +72,9 @@
                     <td><c:out value="${produto.nome}" /></td>
                     <td>R$ <c:out value="${produto.preco}" /></td> 
 		            <td>
-		               <button class="btn btn-info btn-block alterar" name="button">Alterar Produto<i style="margin-left:5px;" class="glyphicon glyphicon-pencil"></i></button>
+		               <button class="btn btn-info btn-block alterar" name="button">
+		               Alterar Produto <span class="hidden codigo" name="codigo"><c:out value="${produto.codigo}"/></span>
+		               <i style="margin-left:5px;" class="glyphicon glyphicon-pencil"></i></button>
 		            </td>
 		            <td>
 		               <button class="btn btn-danger btn-block excluir" name="button">
@@ -86,21 +88,35 @@
         </div>
         
         <script>
+        
         	$(document).on("click",".excluir",function(){
         		var codigo = $(this).find("span").eq(0).text().trim();
                 $.ajax({
-                    url: 'ControllerProduto',
-                    type: 'get',
-                    data: {codigo:codigo},
+                    url: 'ControllerProduto?codigo='+codigo,
+                    type: 'delete',
                     success: function(result) {
                     	alert("Produto Excluido com Suceso.");
                     	location.reload();
                     }, error:function(result){
                     	alert("Ocorreu um Erro ao Excluir: "+ result);
                     }
-                });
-                
-        	});       
+                });     
+        	});    
+        	
+	       	$(document).on("click",".alterar",function(){
+	        	   var codigo = $(this).find("span").eq(0).text().trim();
+	               $.ajax({
+	                   url: 'ControllerProduto?update=s&codigo='+codigo,
+	                   type: 'post',
+	                   data:{codigo:codigo,update:"S"},
+	                   success: function(result) {
+	                	   //location.assign("cadastraProduto");
+	                	   console.log(result);
+	                   }, error:function(result){
+	                   	alert("Ocorreu um Erro ao Alterar: "+ result);
+	                   }
+	               });     
+	       	});    
         	
         </script>
 

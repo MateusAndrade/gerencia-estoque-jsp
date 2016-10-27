@@ -15,7 +15,6 @@ import estoque.model.Produto;
 public class ProdutoDAOImp implements IProdutoDAO {
 
 	private Connection con = null;
-	private Gson serialize = new Gson();
 	
 	public ProdutoDAOImp() {
 		con = new DBUtil().getConnection();
@@ -39,12 +38,6 @@ public class ProdutoDAOImp implements IProdutoDAO {
 		ps.setInt(1,prod.getCodigo());
 		ps.execute();
 		ps.close();
-		System.out.println("Foi");
-	}
-
-	@Override
-	public Produto alterar(int codigo) throws SQLException {
-		return null;
 	}
 
 	@Override
@@ -64,6 +57,31 @@ public class ProdutoDAOImp implements IProdutoDAO {
 		rs.close();
 		ps.close();
 		return listaProdutos;
+	}
+
+	@Override
+	public Produto alterar(Produto prod) throws SQLException {
+		System.out.println(prod.getNome());
+		return null;
+	}
+
+	@Override
+	public Produto retornaProduto(int codigo) throws SQLException {
+		String sql = "CALL consultaProduto(?);";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1,codigo);
+		ResultSet rs = ps.executeQuery();
+		Produto prod = new Produto();
+		
+		while(rs.next()){
+			prod.setCodigo((rs.getInt("codigo_produto")));
+			prod.setNome((rs.getString("nome_produto")));
+			prod.setPreco((rs.getDouble("preco_produto")));
+			prod.setQuantidade((rs.getInt("quantidade_produto")));
+		}
+		
+		return prod;
+		
 	}
 
 }
