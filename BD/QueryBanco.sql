@@ -139,4 +139,17 @@ END//
 
 CALL inserirProduto('mATEUS',50,50);
 
+
+DROP PROCEDURE IF EXISTS excluirProduto;
+
+DELIMITER //
+
+CREATE PROCEDURE excluirProduto( IN cod INT )
+BEGIN
+	DELETE FROM produtos WHERE codigo_produto = cod;
+END//
+
+CALL excluirProduto(13);
+
+
 /*----------------------------------------- DML ---------------------------------------------*/

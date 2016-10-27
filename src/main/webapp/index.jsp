@@ -23,9 +23,9 @@
         </div>
 
         <ul class="nav navbar-nav">
-          <li><a href="/funcionarios">Funcionários</a></li>
-          <li><a class="active" href="principal_produto.jsp">Produtos</a></li>
-          <li><a href="principal_requisicoes.jsp">Requisições</a></li>
+          <li><a href="ControllerFuncionario">Funcionários</a></li>
+          <li><a class="active" href="ControllerProduto">Produtos</a></li>
+          <li><a href="ControllerRequisicao">Requisições</a></li>
         </ul>
 
         <div class="pull-right">
@@ -43,9 +43,14 @@
 
         <div class="col-xs-12">
           <ol class="breadcrumb">
-            <li><a href="#">Home</a></li>
+            <li><a href="">Home</a></li>
           </ol>
         </div>
+        
+        <div class="col-xs-12">
+        	<p>Bem-Vindo <strong class="text-primary">Usuário</strong>, aqui estão algumas informações interessantes:</p>
+        </div>
+        
 
         <div class="col-xs-12">
           <table class="table table-bordered">

@@ -17,6 +17,16 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>cadastraProduto</servlet-name>
+		<jsp-file>/cadastra_produto.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>cadastraProduto</servlet-name>
+		<url-pattern>/cadastraProduto</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>paginaFuncionarios</servlet-name>
 		<jsp-file>/principal_funcionario.jsp</jsp-file>
 	</servlet>	

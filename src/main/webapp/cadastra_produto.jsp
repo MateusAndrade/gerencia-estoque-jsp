@@ -43,8 +43,8 @@
 
         <div class="col-xs-12">
           <ol class="breadcrumb">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Produto</a></li>
+            <li><a href="">Home</a></li>
+            <li><a href="ControllerProduto">Produto</a></li>
             <li class="active"><a href="#">Cadastrar Produto</a></li>
           </ol>
         </div>
@@ -56,7 +56,7 @@
               <div class="row">
                 <div class="col-xs-12">
                   <label for="nome">Nome:</label>
-                  <input type="text" class="form-control" name="nome" placeholder="Insira um Nome para o Produto:">
+                  <input required type="text" class="form-control" name="nome" placeholder="Insira um Nome para o Produto:">
                 </div>
               </div>
             </div>
@@ -65,11 +65,14 @@
               <div class="row">
                 <div class="col-xs-6">
                   <label for="quantidade">Quantidade:</label>
-                  <input type="number" class="form-control" name="quantidade" placeholder="Insira uma Quantidade:">
+                  <input required type="number" class="form-control" name="quantidade" placeholder="Insira uma Quantidade:">
                 </div>
                 <div class="col-xs-6">
-                  <label for="preco">Preço:</label>
-                  <input type="text" class="form-control" name="preco" placeholder="Insira um Preço">
+	              <label for="preco">Preço:</label>
+                  <div style='width:100%;' class="input-group">
+                  <span class="input-group-addon"><strong>R$</strong></span>
+    	              <input required type="text" class="form-control" name="preco" placeholder="Insira um Preço">
+    	           </div>
                 </div>    
               </div>
             </div>
@@ -80,7 +83,7 @@
                   <button type="submit" class="btn btn-success btn-block"><p>Cadastrar Produto</p><p><i class="glyphicon glyphicon-ok"></i></p></button>
                 </div>
                 <div class="col-xs-6">
-                  <button type="submit" class="btn btn-danger btn-block"><p>Cancelar</p><p><i class="glyphicon glyphicon-remove"></i></p></button>
+                  <button type="exit" class="btn btn-danger btn-block"><p>Cancelar</p><p><i class="glyphicon glyphicon-remove"></i></p></button>
                 </div>
               </div>
             </div>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
@@ -65,23 +66,46 @@
               <th>Alterar:</th>
               <th>Deletar:</th>
             </tr>
-            <tr>
-              <td><a href="#">01</a></td>
-              <td>Escova</td>
-              <td>23:15:01</td>
-              <td>
-                <button class="btn btn-info" name="button">Alterar Produto<i class="glyphicon glyphicon-pencil"></i></button>
-              </td>
-              <td>
-                <button class="btn btn-danger" name="button">Excluir Produto<i class="glyphicon glyphicon-remove"></i></button>
-              </td>
-            </tr>
+            <c:forEach items="${produtos}" var="produto" >
+                <tr> 
+                    <td><c:out value="${produto.codigo}" /></td> 
+                    <td><c:out value="${produto.nome}" /></td>
+                    <td>R$ <c:out value="${produto.preco}" /></td> 
+		            <td>
+		               <button class="btn btn-info btn-block alterar" name="button">Alterar Produto<i style="margin-left:5px;" class="glyphicon glyphicon-pencil"></i></button>
+		            </td>
+		            <td>
+		               <button class="btn btn-danger btn-block excluir" name="button">
+		               Excluir Produto <span class="hidden codigo" name="codigo"><c:out value="${produto.codigo}"/></span>
+		               <i style="margin-left:5px;" class="glyphicon glyphicon-remove"></i></button>
+		            </td>
+                </tr>
+            </c:forEach>
           </table>
 
         </div>
+        
+        <script>
+        	$(document).on("click",".excluir",function(){
+        		var codigo = $(this).find("span").eq(0).text().trim();
+                $.ajax({
+                    url: 'ControllerProduto',
+                    type: 'get',
+                    data: {codigo:codigo},
+                    success: function(result) {
+                    	alert("Produto Excluido com Suceso.");
+                    	location.reload();
+                    }, error:function(result){
+                    	alert("Ocorreu um Erro ao Excluir: "+ result);
+                    }
+                });
+                
+        	});       
+        	
+        </script>
 
         <div class="col-xs-12">
-          <a href="cadastra_produto.jsp" class="btn btn-success btn-block" name="button"><p>Cadastrar Produto</p><p><i class="glyphicon glyphicon-plus"></i></p></a>
+          <a href="cadastraProduto" class="btn btn-success btn-block" name="button"><p>Cadastrar Produto</p><p><i class="glyphicon glyphicon-plus"></i></p></a>
         </div>
 
       </div>

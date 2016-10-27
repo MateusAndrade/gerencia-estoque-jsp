@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.taglibs.standard.lang.jstl.IntegerLiteral;
+
 import estoque.model.Produto;
 import estoque.persistence.DBUtil;
 import estoque.persistence.IProdutoDAO;
@@ -26,8 +28,19 @@ public class ServletProduto extends HttpServlet {
         super();
     }
 	  	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+		try {
+			if( request.getParameter("codigo") != null){
+				System.out.println("Show");
+				doDelete(request, response);
+			}  else {			
+			    request.setAttribute("produtos",produtoDAO.listarProdutos());
+	            request.getRequestDispatcher("principal_produto.jsp").forward(request, response);	
+	        }	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -36,7 +49,7 @@ public class ServletProduto extends HttpServlet {
 		prod.setQuantidade(Integer.parseInt(request.getParameter("quantidade")));
 		try {
 			produtoDAO.adicionar(prod);
-			response.sendRedirect("principal_produto.jsp");
+			response.sendRedirect("ControllerProduto");
 		} catch (SQLException e) {
 			e.printStackTrace();;
 		}		
@@ -47,7 +60,13 @@ public class ServletProduto extends HttpServlet {
 	}
 
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		try {
+			System.out.println(request.getParameter("codigo"));
+			prod.setCodigo(Integer.parseInt(request.getParameter("codigo")));
+			produtoDAO.excluir(prod);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
