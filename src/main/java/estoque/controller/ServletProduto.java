@@ -46,7 +46,7 @@ public class ServletProduto extends HttpServlet {
 		prod.setPreco(Double.parseDouble(request.getParameter("preco")));
 		prod.setQuantidade(Integer.parseInt(request.getParameter("quantidade")));
 		try {
-			produtoDAO.adicionar(prod);
+			produtoDAO.adicionarProduto(prod);
 			response.sendRedirect("ControllerProduto");
 		} catch (SQLException e) {
 			e.printStackTrace();;
@@ -58,7 +58,7 @@ public class ServletProduto extends HttpServlet {
 			prod.setNome(request.getParameter("nome"));
 			prod.setPreco(Double.parseDouble(request.getParameter("preco")));
 			prod.setQuantidade(Integer.parseInt(request.getParameter("quantidade")));
-			produtoDAO.alterar(prod);
+			produtoDAO.alterarProduto(prod);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -68,7 +68,7 @@ public class ServletProduto extends HttpServlet {
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			prod.setCodigo(Integer.parseInt(request.getParameter("codigo")));
-			produtoDAO.excluir(prod);
+			produtoDAO.excluirProduto(prod);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

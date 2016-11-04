@@ -7,9 +7,9 @@ import estoque.model.Produto;
 
 public interface IProdutoDAO {
 
-	public void adicionar( Produto prod ) throws SQLException;
-	public void excluir( Produto prod ) throws SQLException;
-	public Produto alterar( Produto prod ) throws SQLException;
+	public void adicionarProduto( Produto prod ) throws SQLException;
+	public void excluirProduto( Produto prod ) throws SQLException;
+	public void alterarProduto( Produto prod ) throws SQLException;
 	public List<Produto> listarProdutos(  ) throws SQLException;
-	public Produto retornaProduto( int codigo ) throws SQLException;
+	
 }

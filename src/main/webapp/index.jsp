@@ -23,8 +23,8 @@
         </div>
 
         <ul class="nav navbar-nav">
-          <li><a href="ControllerFuncionario">Funcionários</a></li>
-          <li><a class="active" href="ControllerProduto">Produtos</a></li>
+          <li><a href="RetornaFuncionarios">Funcionários</a></li>
+          <li><a class="active" href="RetornaProdutos">Produtos</a></li>
           <li><a href="ControllerRequisicao">Requisições</a></li>
         </ul>
 

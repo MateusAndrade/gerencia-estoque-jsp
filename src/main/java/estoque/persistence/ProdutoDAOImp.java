@@ -21,7 +21,7 @@ public class ProdutoDAOImp implements IProdutoDAO {
 	}
 	
 	@Override
-	public void adicionar(Produto prod) throws SQLException {
+	public void adicionarProduto(Produto prod) throws SQLException {
 		String sql = "Call inserirProduto(?,?,?);";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, prod.getNome());
@@ -32,7 +32,7 @@ public class ProdutoDAOImp implements IProdutoDAO {
 	}
 
 	@Override
-	public void excluir(Produto prod) throws SQLException {
+	public void excluirProduto(Produto prod) throws SQLException {
 		String sql = "CALL excluirProduto(?);";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1,prod.getCodigo());
@@ -60,27 +60,8 @@ public class ProdutoDAOImp implements IProdutoDAO {
 	}
 
 	@Override
-	public Produto alterar(Produto prod) throws SQLException {
-		System.out.println(prod.getNome());
-		return null;
-	}
-
-	@Override
-	public Produto retornaProduto(int codigo) throws SQLException {
-		String sql = "CALL consultaProduto(?);";
-		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setInt(1,codigo);
-		ResultSet rs = ps.executeQuery();
-		Produto prod = new Produto();
-		
-		while(rs.next()){
-			prod.setCodigo((rs.getInt("codigo_produto")));
-			prod.setNome((rs.getString("nome_produto")));
-			prod.setPreco((rs.getDouble("preco_produto")));
-			prod.setQuantidade((rs.getInt("quantidade_produto")));
-		}
-		
-		return prod;
+	public void alterarProduto(Produto prod) throws SQLException {
+		// TODO Auto-generated method stub
 		
 	}
 

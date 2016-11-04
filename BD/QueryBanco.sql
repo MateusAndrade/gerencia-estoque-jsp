@@ -40,12 +40,6 @@ VALUES ( 1 , 1, 5 , CURDATE() , TIME(SYSDATE()) ,'P');
 INSERT INTO requisicao( codigo_funcionario, codigo_produto, qtd_requisicao, data_requisicao, hora_requisicao, status_requisicao)
 VALUES ( 2 , 2, 5 , CURDATE() , TIME(SYSDATE()) ,'P');
 
-SELECT * FROM funcionarios
-
-SELECT * FROM requisicao
-
-SELECT * FROM produtos
-
 
 /*----------------------------------------- DDL ---------------------------------------------*/
 
@@ -88,6 +82,8 @@ END//
 
 CALL consultarFuncionarioCodigo(1);
 
+
+SELECT * FROM funcionarios
 
 DROP PROCEDURE IF EXISTS consultarFuncionarioNome;
 
