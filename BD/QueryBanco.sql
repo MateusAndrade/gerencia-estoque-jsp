@@ -169,5 +169,6 @@ END//
 
 CALL consultaProduto(7);
 
+SELECT nome_funcionario FROM funcionarios
 
 /*----------------------------------------- DML ---------------------------------------------*/
