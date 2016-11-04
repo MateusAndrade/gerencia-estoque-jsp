@@ -34,7 +34,17 @@ CREATE TABLE requisicao(
     FOREIGN KEY( codigo_produto ) REFERENCES produtos( codigo_produto )
 )
 
-DROP TABLE requisicao
+INSERT INTO requisicao( codigo_funcionario, codigo_produto, qtd_requisicao, data_requisicao, hora_requisicao, status_requisicao)
+VALUES ( 1 , 1, 5 , CURDATE() , TIME(SYSDATE()) ,'P');
+
+INSERT INTO requisicao( codigo_funcionario, codigo_produto, qtd_requisicao, data_requisicao, hora_requisicao, status_requisicao)
+VALUES ( 2 , 2, 5 , CURDATE() , TIME(SYSDATE()) ,'P');
+
+SELECT * FROM funcionarios
+
+SELECT * FROM requisicao
+
+SELECT * FROM produtos
 
 
 /*----------------------------------------- DDL ---------------------------------------------*/
@@ -53,7 +63,7 @@ BEGIN
     VALUES(nome,cpf,rg,fone,email,senha);
 END//
 
-CALL inserirFuncionario('Lucas','1123','1213','1213','EMAIL',21);
+CALL inserirFuncionario('Mateus','11123','12113','11213','EMAIL',21);
 
 DROP PROCEDURE IF EXISTS excluirFuncionario();
 
@@ -137,7 +147,7 @@ BEGIN
     VALUES(nome,quantidade,preco);
 END//
 
-CALL inserirProduto('mATEUS',50,50);
+CALL inserirProduto('Mouse',20,50);
 
 
 DROP PROCEDURE IF EXISTS excluirProduto;

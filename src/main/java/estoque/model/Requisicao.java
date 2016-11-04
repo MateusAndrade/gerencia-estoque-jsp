@@ -48,12 +48,5 @@ public class Requisicao {
 		this.hora_requisicao = hora_requisicao;
 	}
 	
-	@Override
-	public String toString() {
-		return "Requisicao [prod=" + prod + ", func=" + func + ", codigo_requisicao=" + codigo_requisicao
-				+ ", qtd_requisicao=" + qtd_requisicao + ", data_requisicao=" + data_requisicao + ", hora_requisicao="
-				+ hora_requisicao + "]";
-	}
-	
 	
 }

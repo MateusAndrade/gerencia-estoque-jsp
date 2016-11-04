@@ -79,41 +79,6 @@
           </table>
         </div>
 
-        <div class="col-xs-12">
-
-          <table class="table table-bordered">
-            <caption>Produtos com Estoque baixo:</caption>
-            <tr>
-              <th>ID:</th>
-              <th>Produto:</th>
-              <th>Hora:</th>
-            </tr>
-            <tr>
-              <td class="estoque-baixo">01</td>
-              <td>Escova</td>
-              <td>23:15:01</td>
-            </tr>
-            <tr>
-              <td>01</td>
-              <td>Escova</td>
-              <td>23:15:01</td>
-            </tr>
-            <tr>
-              <td>01</td>
-              <td>Escova</td>
-              <td>23:15:01</td>
-            </tr>
-
-            <tr>
-              <td colspan="3">
-                //Legenda
-              </td>
-            </tr>
-
-          </table>
-
-        </div>
-
       </div>
 
     </div>
