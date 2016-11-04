@@ -13,6 +13,6 @@ public interface IFuncionarioDAO {
 	public void consultarFuncionario( String nome ) throws SQLException;
 	public void alterarFuncionario( Funcionario func ) throws SQLException;
 	public List<Funcionario> retornaFuncionarios ( ) throws SQLException;
-	public String verificaLogin( Funcionario func ) throws SQLException;
+	public Funcionario verificaLogin( Funcionario func ) throws SQLException;
 	
 }

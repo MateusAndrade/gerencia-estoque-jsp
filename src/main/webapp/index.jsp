@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
@@ -12,82 +13,93 @@
     <script src="js/bootstrap.min.js" charset="utf-8"></script>
   </head>
   <body>
- 
-    <nav class="navbar navbar-default navbar-fixed-top navbar-cor">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="">
-            <img class="alinha-icone-navbar" src="imgs/icone-navbar.png" height="35">
-          </a>
-          <p class="navbar-text">Gerencia Estoque Show</p>
-        </div>
-
-        <ul class="nav navbar-nav">
-          <li><a href="RetornaFuncionarios">Funcionários</a></li>
-          <li><a class="active" href="RetornaProdutos">Produtos</a></li>
-          <li><a href="ControllerRequisicao">Requisições</a></li>
-        </ul>
-
-        <div class="pull-right">
-          <ul class="nav navbar-nav">
-            <li><a href="#">Usuário <i class="glyphicon glyphicon-user"></i></a></li>
-            <li><a href="#">Sair <i class="glyphicon glyphicon-remove"></i></a></li>
-          </ul>
-        </div>
-
-      </div>
-    </nav>
-
-    <div class="container-fluid">
-      <div class="row">
-
-        <div class="col-xs-12">
-          <ol class="breadcrumb">
-            <li><a href="">Home</a></li>
-          </ol>
-        </div>
-        
-        <div class="col-xs-12">
-        	<p>Bem-Vindo <strong class="text-primary">Usuário</strong>, aqui estão algumas informações interessantes:</p>
-        </div>
-        
-
-        <div class="col-xs-12">
-          <table class="table table-bordered">
-            <caption>Últimas Requisições solicitadas:</caption>
-            <tr>
-              <th>ID:</th>
-              <th>Produto:</th>
-              <th>Hora:</th>
-            </tr>
-            <tr>
-              <td>01</td>
-              <td>Escova</td>
-              <td>23:15:01</td>
-            </tr>
-            <tr>
-              <td>01</td>
-              <td>Escova</td>
-              <td>23:15:01</td>
-            </tr>
-            <tr>
-              <td>01</td>
-              <td>Escova</td>
-              <td>23:15:01</td>
-            </tr>
-
-          </table>
-        </div>
-
-      </div>
-
-    </div>
-
-    <nav class="navbar navbar-default navbar-fixed-bottom navbar-cor">
-      <div class="container-fluid">
-      </div>
-    </nav>
-
+	<c:choose> 
+		<c:when test="${sessionScope.usuario != null}">
+		    <nav class="navbar navbar-default navbar-fixed-top navbar-cor">
+		      <div class="container-fluid">
+		        <div class="navbar-header">
+		          <a class="navbar-brand" href="">
+		            <img class="alinha-icone-navbar" src="imgs/icone-navbar.png" height="35">
+		          </a>
+		          <p class="navbar-text">Gerencia Estoque Show</p>
+		        </div>
+		
+		        <ul class="nav navbar-nav">
+		          <li><a href="RetornaFuncionarios">Funcionários</a></li>
+		          <li><a class="active" href="RetornaProdutos">Produtos</a></li>
+		          <li><a href="ControllerRequisicao">Requisições</a></li>
+		        </ul>
+		
+		        <div class="pull-right">
+		          <ul class="nav navbar-nav">
+		            <li><a href="#"><c:out value="${sessionScope.usuario}" /><i class="glyphicon glyphicon-user"></i></a></li>
+		            <li>
+		            	<a href="<c:url value="login.jsp"/>">
+		            	Sair
+		            	 <i class="glyphicon glyphicon-remove"></i>
+		           	 	</a>
+		           	 </li>
+		          </ul>
+		        </div>
+		
+		      </div>
+		    </nav>
+		
+		    <div class="container-fluid">
+		      <div class="row">
+		        <div class="col-xs-12">
+		          <ol class="breadcrumb">
+		            <li><a href="">Home</a></li>
+		          </ol>
+		        </div>
+		        
+		        <div class="col-xs-12">
+		        	<p>Bem-Vindo <strong class="text-primary">Usuário</strong>, aqui estão algumas informações interessantes:</p>
+		        </div>
+		        
+		
+		        <div class="col-xs-12">
+		          <table class="table table-bordered">
+		            <caption>Últimas Requisições solicitadas:</caption>
+		            <tr>
+		              <th>ID:</th>
+		              <th>Produto:</th>
+		              <th>Hora:</th>
+		            </tr>
+		            <tr>
+		              <td>01</td>
+		              <td>Escova</td>
+		              <td>23:15:01</td>
+		            </tr>
+		            <tr>
+		              <td>01</td>
+		              <td>Escova</td>
+		              <td>23:15:01</td>
+		            </tr>
+		            <tr>
+		              <td>01</td>
+		              <td>Escova</td>
+		              <td>23:15:01</td>
+		            </tr>
+		
+		          </table>
+		        </div>
+		
+		      </div>
+		
+		    </div>
+		
+		    <nav class="navbar navbar-default navbar-fixed-bottom navbar-cor">
+		      <div class="container-fluid">
+		      </div>
+		    </nav>
+	    </c:when>
+	    
+		<c:when test="${sessionScope.usuario == null}">
+			<h1><c:out value="Você não possui acesso a esta opção."></c:out></h1>
+		</c:when>
+	    
+	</c:choose>  
 
   </body>
 </html>

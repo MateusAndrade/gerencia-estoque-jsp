@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import estoque.model.Funcionario;
 import estoque.persistence.FuncionarioDAOImpl;
@@ -27,10 +28,18 @@ public class ServletLogin extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Funcionario func = new Funcionario();
+		HttpSession sessao = request.getSession();
 		func.setEmail(request.getParameter("login"));
 		func.setSenha(Integer.parseInt(request.getParameter("senha")));
 		try {
-			funcDAO.verificaLogin(func);
+			if(funcDAO.verificaLogin(func).getNome() !=  null){
+				String usuario = "Mateus";
+				sessao.setAttribute("usuario",funcDAO.verificaLogin(func).getNome());
+	    		request.getRequestDispatcher("").forward(request, response);	
+			} else {
+				request.getRequestDispatcher("login.jsp").forward(request,response);
+			}
+			
 		} catch (SQLException e) {
 			System.out.println("Erro:"+e);
 		}

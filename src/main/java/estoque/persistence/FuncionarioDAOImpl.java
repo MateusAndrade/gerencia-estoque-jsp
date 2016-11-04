@@ -61,7 +61,7 @@ public class FuncionarioDAOImpl implements IFuncionarioDAO {
 	}
 
 	@Override
-	public String verificaLogin(Funcionario func) throws SQLException {
+	public Funcionario verificaLogin(Funcionario func) throws SQLException {
 		String sql = "SELECT nome_funcionario FROM funcionarios WHERE email_funcionario = ? AND senha = ?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, func.getEmail());
@@ -69,7 +69,8 @@ public class FuncionarioDAOImpl implements IFuncionarioDAO {
 		ResultSet rs = ps.executeQuery();
 		if(rs.next()){
 			System.out.println(rs.getString("nome_funcionario"));
-			return rs.getString("nome_funcionario");
+			func.setNome(rs.getString("nome_funcionario"));
+			return func;
 		} else {
 			return null;			
 		}

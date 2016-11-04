@@ -12,6 +12,7 @@
     <script src="js/bootstrap.min.js" charset="utf-8"></script>
 </head>
 <body class="background-login">
+		            	<% session.invalidate(); %>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-5 col-md-offset-3 login-box" style="background:white;">
