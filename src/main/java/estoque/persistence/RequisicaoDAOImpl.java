@@ -11,25 +11,25 @@ import estoque.model.Funcionario;
 import estoque.model.Produto;
 import estoque.model.Requisicao;
 
-public class RequisicaoImpl implements IRequisicaoDAO {
+public class RequisicaoDAOImpl implements IRequisicaoDAO {
 
 	private Connection con = null;
 	
-	public RequisicaoImpl() {
+	public RequisicaoDAOImpl() {
 		con = new DBUtil().getConnection();	
 	}
 	
 	@Override
-	public void geraRequiscao(Requisicao req) throws SQLException {
-		// TODO Auto-generated method stub
-		
+	public void geraRequisicao(Requisicao req) throws SQLException {
+		String sql = "CALL inserirRequisicao(?,?,?);";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, req.getFunc().getCodigo());
+		ps.setInt(2,req.getProd().getCodigo());
+		ps.setInt(3,req.getQtd_requisicao());
+		ps.execute();
+		ps.close();
 	}
 
-	@Override
-	public void baixaRequisicao(Requisicao req) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public List<Requisicao> listaRequisicao() throws SQLException {
@@ -54,6 +54,24 @@ public class RequisicaoImpl implements IRequisicaoDAO {
 		rs.close();
 		ps.close();		
 		return listaRequisicao;
+	}
+
+	@Override
+	public void baixaRequisicao(int codigo) throws SQLException {
+		String sql = "UPDATE requisicao SET status_requisicao='B' WHERE codigo_requisicao=?;";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, codigo);
+		ps.execute();
+		ps.close();
+	}
+
+	@Override
+	public void estornaRequisicao(int codigo) throws SQLException {
+		String sql = "UPDATE requisicao SET status_requisicao='P' WHERE codigo_requisicao=?;";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, codigo);
+		ps.execute();
+		ps.close();
 	}
 
 }

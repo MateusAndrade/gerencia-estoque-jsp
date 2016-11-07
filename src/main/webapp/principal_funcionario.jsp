@@ -67,6 +67,7 @@
               <th>Alterar:</th>
               <th>Deletar:</th>
             </tr>
+            <c:out value="${teste}"/>
             <c:forEach items="${funcionarios}" var="funcionario" >
                 <tr> 
                     <td><c:out value="${funcionario.codigo}" /></td> 

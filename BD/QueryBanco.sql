@@ -38,7 +38,7 @@ INSERT INTO requisicao( codigo_funcionario, codigo_produto, qtd_requisicao, data
 VALUES ( 1 , 1, 5 , CURDATE() , TIME(SYSDATE()) ,'P');
 
 INSERT INTO requisicao( codigo_funcionario, codigo_produto, qtd_requisicao, data_requisicao, hora_requisicao, status_requisicao)
-VALUES ( 2 , 2, 5 , CURDATE() , TIME(SYSDATE()) ,'P');
+VALUES ( 1 , 2, 20 , CURDATE() , TIME(SYSDATE()) ,'P');
 
 
 /*----------------------------------------- DDL ---------------------------------------------*/
@@ -143,7 +143,7 @@ BEGIN
     VALUES(nome,quantidade,preco);
 END//
 
-CALL inserirProduto('Mouse',20,50);
+CALL inserirProduto('Caixa de Som',100,15);
 
 
 DROP PROCEDURE IF EXISTS excluirProduto;
@@ -171,6 +171,8 @@ CALL consultaProduto(7);
 
 SELECT * FROM requisicao
 
+
+
 SELECT * FROM funcionarios
 
 SELECT * FROM produtos
@@ -186,7 +188,24 @@ BEGIN
 	ON req.codigo_funcionario = func.codigo_funcionario;
 END//
 
-consultaRequisicao();
+CALL consultaRequisicao();
 
+INSERT INTO requisicao(codigo_funcionario, codigo_produto, qtd_requisicao,data_requisicao,hora_requisicao,status_requisicao)
+ VALUES(2,1,15,CURDATE(),CURTIME(),'B')
+
+
+DROP PROCEDURE IF EXISTS inserirRequisicao;
+
+DELIMITER //
+
+CREATE PROCEDURE inserirRequisicao( IN cod_func INT, IN cod_prod INT, IN qtd INT )
+BEGIN
+	INSERT INTO requisicao(codigo_funcionario, codigo_produto, qtd_requisicao,data_requisicao,hora_requisicao,status_requisicao)
+	VALUES(cod_func,cod_prod,qtd,CURDATE(),CURTIME(),'P');
+END//
+
+CALL inserirRequisicao(1,2,80);
+
+SELECT * FROM requisicao
 
 /*----------------------------------------- DML ---------------------------------------------*/

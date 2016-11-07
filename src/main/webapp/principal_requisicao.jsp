@@ -81,8 +81,8 @@
                    			<strong><c:out value="${requisicao.status}" /></strong>						
 						</td>
 						<td>
-			               <button class="btn btn-info btn-block alterar" name="button">
-			               Baixar Requisição
+			               <button class="btn btn-info btn-block baixar" name="baixar">
+			               Baixar Requisição <span class="hidden codigo" name="codigo"><c:out value="${requisicao.codigo_requisicao}"/></span>
 			               <i style="margin-left:5px;" class="glyphicon glyphicon-pencil"></i></button>	
 						</td>  
                    	</c:if>     
@@ -91,8 +91,8 @@
                    			<strong><c:out value="${requisicao.status}" /></strong>						
 						</td>
 						<td>
-			               <button class="btn btn-danger btn-block alterar" name="button">
-			               Estornar Requisição
+			               <button class="btn btn-danger btn-block estornar" name="button">
+			               Estornar Requisição <span class="hidden codigo" name="codigo"><c:out value="${requisicao.codigo_requisicao}"/></span>
 			               <i style="margin-left:5px;" class="glyphicon glyphicon-pencil"></i></button>	
 						</td>  						
                    	</c:if>                        	                                  
@@ -103,21 +103,40 @@
         </div>
         
         <div class="col-xs-12">
-          <a href="#" id="btn" class="btn btn-success btn-block" name="button"><p>Gerar Requisição</p><p><i class="glyphicon glyphicon-plus"></i></p></a>
+          <a href="cadastraRequisicao" id="btn" class="btn btn-success btn-block" name="button"><p>Gerar Requisição</p><p><i class="glyphicon glyphicon-plus"></i></p></a>
         </div>
 
       </div>
       
       <script>
       	
-      	$(document).ready(function(){
-      		
-      		if($(".status").text() == "P"){
-      			console.log("A");
-      		}
-      		
-      	});
-      
+	  	$(document).on("click",".baixar",function(){
+			var codigo = $(this).find("span").eq(0).text().trim();
+	        $.ajax({
+	            url: 'ControllerRequisicao?tipo=B&codigo='+codigo,
+	            type: 'put',
+	            success: function(result) {
+	            	alert("Requisição Feita com Suceso.");
+	            	location.reload();
+	            }, error:function(result){
+	            	alert("Ocorreu um Erro ao realizar a requisição.: "+ result);
+	            }
+	        });     
+		}); 
+	  	
+	  	$(document).on("click",".estornar",function(){
+			var codigo = $(this).find("span").eq(0).text().trim();
+	        $.ajax({
+	            url: 'ControllerRequisicao?tipo=P&codigo='+codigo,
+	            type: 'put',
+	            success: function(result) {
+	            	alert("Requisição Estornada com Suceso.");
+	            	location.reload();
+	            }, error:function(result){
+	            	alert("Ocorreu um Erro ao realizar a operação.: "+ result);
+	            }
+	        });     
+		}); 	  	
       
       </script>
 

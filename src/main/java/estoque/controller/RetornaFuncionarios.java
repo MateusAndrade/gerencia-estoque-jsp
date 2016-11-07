@@ -25,6 +25,7 @@ public class RetornaFuncionarios extends HttpServlet {
 		try {
     		request.setAttribute("funcionarios", funcDAO.retornaFuncionarios());
     		request.getRequestDispatcher("principal_funcionario.jsp").forward(request, response);	
+    		response.sendRedirect("RetornaRequisicao");
 		} catch (SQLException e) {
 			System.out.println("Erro: "+e);
 		}
