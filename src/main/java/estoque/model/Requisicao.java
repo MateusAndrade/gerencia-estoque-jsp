@@ -10,7 +10,14 @@ public class Requisicao {
 	private int qtd_requisicao;
 	private Date data_requisicao;
 	private String hora_requisicao;
-	
+	private String status;
+
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public Produto getProd() {
 		return prod;
 	}

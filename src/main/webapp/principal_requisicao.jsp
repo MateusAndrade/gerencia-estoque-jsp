@@ -1,15 +1,130 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<?xml version="1.0" encoding="UTF-8" ?>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Insert title here</title>
-</head>
-<body>
+<html>
+  <head>
+    <title>Gerencia Requisição</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" media="screen" title="no title">
+    <link rel="stylesheet" href="css/vanilla.css" media="screen" title="no title">
+    <script src="js/jquery.js" charset="utf-8"></script>
+    <script src="js/bootstrap.min.js" charset="utf-8"></script>
+  </head>
+  <body>
+  
+    <nav class="navbar navbar-default navbar-fixed-top navbar-cor">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">
+            <img class="alinha-icone-navbar" src="imgs/icone-navbar.png" height="35">
+          </a>
+          <p class="navbar-text">Gerencia Estoque Show</p>
+        </div>
 
-<h1>Requisicao</h1>
+        <ul class="nav navbar-nav">
+          <li><a href="RetornaFuncionarios">Funcionários</a></li>
+          <li><a class="active" href="RetornaProdutos">Produtos</a></li>
+          <li><a href="RetornaRequisicao">Requisições</a></li>
+        </ul>
 
-</body>
+        <div class="pull-right">
+          <ul class="nav navbar-nav">
+            <li><a href="#">Usuário <i class="glyphicon glyphicon-user"></i></a></li>
+            <li><a href="#">Sair <i class="glyphicon glyphicon-remove"></i></a></li>
+          </ul>
+        </div>
+
+      </div>
+    </nav>
+
+   <div class="container-fluid">
+      <div class="row">
+
+        <div class="col-xs-12">
+          <ol class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li class="active"><a href="#">Requisicões</a></li>
+          </ol>
+        </div>
+
+        <div class="col-xs-12">
+          <table class="table table-bordered">
+            <caption>Requisições Registradas:</caption>
+            <tr>
+              <th colspan="7">
+                <div style='width:100%;' class="input-group">
+                  <span class="input-group-addon">Nome:</span>
+                  <input type="text" class="form-control" placeholder="Filtrar Requisições por Código:">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                </div>
+              </th>
+            </tr>
+            <tr>
+              <th>ID:</th>
+              <th>Funcionário:</th>
+              <th>Produto:</th>
+              <th>Quantidade:</th>
+              <th>Data:</th>
+              <th>Status:</th>
+              <th>Baixar:</th>
+            </tr>
+            <c:forEach items="${requisicoes}" var="requisicao" >
+                <tr> 
+                    <td><c:out value="${requisicao.codigo_requisicao}" /></td> 
+                    <td><c:out value="${requisicao.func.nome}" /></td> 
+                    <td><c:out value="${requisicao.prod.nome}" /></td> 
+                    <td><c:out value="${requisicao.qtd_requisicao}" /></td> 
+                    <td><c:out value="${requisicao.data_requisicao}" /></td> 
+					<c:set var="status" value="${requisicao.status}"/>
+					<c:if test="${requisicao.status == 'P'}">
+						<td style="color:white; background:#EF5350;">
+                   			<strong><c:out value="${requisicao.status}" /></strong>						
+						</td>
+						<td>
+			               <button class="btn btn-info btn-block alterar" name="button">
+			               Baixar Requisição
+			               <i style="margin-left:5px;" class="glyphicon glyphicon-pencil"></i></button>	
+						</td>  
+                   	</c:if>     
+					<c:if test="${requisicao.status == 'B'}">
+						<td style="color:white; background:#039BE5;">
+                   			<strong><c:out value="${requisicao.status}" /></strong>						
+						</td>
+						<td>
+			               <button class="btn btn-danger btn-block alterar" name="button">
+			               Estornar Requisição
+			               <i style="margin-left:5px;" class="glyphicon glyphicon-pencil"></i></button>	
+						</td>  						
+                   	</c:if>                        	                                  
+                </tr>
+            </c:forEach>        
+          </table>
+
+        </div>
+        
+        <div class="col-xs-12">
+          <a href="#" id="btn" class="btn btn-success btn-block" name="button"><p>Gerar Requisição</p><p><i class="glyphicon glyphicon-plus"></i></p></a>
+        </div>
+
+      </div>
+      
+      <script>
+      	
+      	$(document).ready(function(){
+      		
+      		if($(".status").text() == "P"){
+      			console.log("A");
+      		}
+      		
+      	});
+      
+      
+      </script>
+
+    <nav class="navbar navbar-default navbar-fixed-bottom navbar-cor">
+      <div class="container-fluid">
+      </div>
+    </nav>
+
+  </body>
 </html>

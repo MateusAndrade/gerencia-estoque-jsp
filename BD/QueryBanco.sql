@@ -57,7 +57,7 @@ BEGIN
     VALUES(nome,cpf,rg,fone,email,senha);
 END//
 
-CALL inserirFuncionario('Mateus','11123','12113','11213','EMAIL',21);
+CALL inserirFuncionario('Ana','111123','112113','11213','email@yahoo',21);
 
 DROP PROCEDURE IF EXISTS excluirFuncionario();
 
@@ -169,6 +169,24 @@ END//
 
 CALL consultaProduto(7);
 
-SELECT nome_funcionario FROM funcionarios
+SELECT * FROM requisicao
+
+SELECT * FROM funcionarios
+
+SELECT * FROM produtos
+
+DELIMITER //
+
+CREATE PROCEDURE consultaRequisicao()
+BEGIN
+	SELECT req.codigo_requisicao, func.nome_funcionario, prod.nome_produto , req.qtd_requisicao, req.data_requisicao, req.status_requisicao FROM requisicao req
+	INNER JOIN produtos prod
+	ON req.codigo_produto = prod.codigo_produto
+	INNER JOIN funcionarios func
+	ON req.codigo_funcionario = func.codigo_funcionario;
+END//
+
+consultaRequisicao();
+
 
 /*----------------------------------------- DML ---------------------------------------------*/

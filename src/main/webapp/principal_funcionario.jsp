@@ -51,7 +51,7 @@
           <table class="table table-bordered">
             <caption>Funcionários Cadastrados:</caption>
             <tr>
-              <th colspan="5">
+              <th colspan="6">
                 <div style='width:100%;' class="input-group">
                   <span class="input-group-addon">Nome:</span>
                   <input type="text" class="form-control" placeholder="Pesquisar Funcionários por Nome:">

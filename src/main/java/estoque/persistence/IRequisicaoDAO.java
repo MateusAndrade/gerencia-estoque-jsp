@@ -9,7 +9,6 @@ public interface IRequisicaoDAO {
 
 	public void geraRequiscao( Requisicao req ) throws SQLException;
 	public void baixaRequisicao( Requisicao req ) throws SQLException;
-	public void cancelarRequisicao( Requisicao req ) throws SQLException;
-	public List<Requisicao> listaRequisicao( String nome ) throws SQLException;
+	public List<Requisicao> listaRequisicao(   ) throws SQLException;
 
 }
