@@ -35,7 +35,7 @@ public class ServletLogin extends HttpServlet {
 			if(funcDAO.verificaLogin(func).getNome() !=  null){
 				String usuario = "Mateus";
 				sessao.setAttribute("usuario",funcDAO.verificaLogin(func).getNome());
-	    		request.getRequestDispatcher("home").forward(request, response);	
+	    		request.getRequestDispatcher("").forward(request, response);	
 			} else {
 				request.getRequestDispatcher("login.jsp").forward(request,response);
 			}

@@ -11,135 +11,126 @@
     <script src="js/bootstrap.min.js" charset="utf-8"></script>
   </head>
   <body>
-  	<c:choose> 
-		<c:when test="${sessionScope.usuario != null}">  
-		    <nav class="navbar navbar-default navbar-fixed-top navbar-cor">
-		      <div class="container-fluid">
-		        <div class="navbar-header">
-		          <a class="navbar-brand" href="home">
-		            <img class="alinha-icone-navbar" src="imgs/icone-navbar.png" height="35">
-		          </a>
-		          <p class="navbar-text">Gerencia Estoque Show</p>
-		        </div>
-		
-		        <ul class="nav navbar-nav">
-		          <li><a href="RetornaFuncionarios">Funcionários</a></li>
-		          <li><a class="active" href="RetornaProdutos">Produtos</a></li>
-		          <li><a href="RetornaRequisicao">Requisições</a></li>
-		        </ul>
-		
-		        <div class="pull-right">
-		          <ul class="nav navbar-nav">
-		            <li><a href="#"><c:out value="${sessionScope.usuario}" /><i class="glyphicon glyphicon-user"></i></a></li>
-		            <li><a href="login">Sair <i class="glyphicon glyphicon-remove"></i></a></li>
-		          </ul>
-		        </div>
-		
-		      </div>
-		    </nav>
-		
-		   <div class="container-fluid">
-		      <div class="row">
-		
-		        <div class="col-xs-12">
-		          <ol class="breadcrumb">
-		            <li><a href="home">Home</a></li>
-		            <li class="active"><a href="RetornaProdutos">Produtos</a></li>
-		          </ol>
-		        </div>
-		
-		        <div class="col-xs-12">
-		          <table class="table table-bordered">
-		            <caption>Produtos Cadastrados:</caption>
-		            <tr>
-		              <th colspan="5">
-		                <div style='width:100%;' class="input-group">
-		                  <span class="input-group-addon">Nome:</span>
-		                  <input type="text" class="form-control" placeholder="Pesquisar Produtos por Nome:">
-		                  <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-		                </div>
-		              </th>
-		            </tr>
-		            <tr>
-		              <th>ID:</th>
-		              <th>Produto:</th>
-		              <th>Quantidade:</th>
-		              <th>Alterar:</th>
-		              <th>Deletar:</th>
-		            </tr>
-		            <c:forEach items="${produtos}" var="produto" >
-		                <tr> 
-		                    <td><c:out value="${produto.codigo}" /></td> 
-		                    <td><c:out value="${produto.nome}" /></td>
-		                    <td>R$ <c:out value="${produto.preco}" /></td> 
-				            <td>
-				               <button class="btn btn-info btn-block alterar" name="button">
-				               Alterar Produto <span class="hidden codigo" name="codigo"><c:out value="${produto.codigo}"/></span>
-				               <i style="margin-left:5px;" class="glyphicon glyphicon-pencil"></i></button>
-				            </td>
-				            <td>
-				               <button class="btn btn-danger btn-block excluir" name="button">
-				               Excluir Produto <span class="hidden codigo" name="codigo"><c:out value="${produto.codigo}"/></span>
-				               <i style="margin-left:5px;" class="glyphicon glyphicon-remove"></i></button>
-				            </td>
-		                </tr>
-		            </c:forEach>
-		          </table>
-		
-		        </div>
-		        
-		        <script>
-		        
-		        	$(document).on("click",".excluir",function(){
-		        		var codigo = $(this).find("span").eq(0).text().trim();
-		                $.ajax({
-		                    url: 'ControllerProduto?codigo='+codigo,
-		                    type: 'delete',
-		                    success: function(result) {
-		                    	alert("Produto Excluido com Suceso.");
-		                    	location.reload();
-		                    }, error:function(result){
-		                    	alert("Ocorreu um Erro ao Excluir: "+ result);
-		                    }
-		                });     
-		        	});    
-		        	
-			       	$(document).on("click",".alterar",function(){
-			        	   var codigo = $(this).find("span").eq(0).text().trim();
-			               $.ajax({
-			                   url: 'ControllerProduto?update=s&codigo='+codigo,
-			                   type: 'post',
-			                   data:{codigo:codigo,update:"S"},
-			                   success: function(result) {
-			                	   //location.assign("cadastraProduto");
-			                	   console.log(result);
-			                   }, error:function(result){
-			                   	alert("Ocorreu um Erro ao Alterar: "+ result);
-			                   }
-			               });     
-			       	});    
-		        	
-		        </script>
-		
-		        <div class="col-xs-12">
-		          <a href="cadastraProduto" class="btn btn-success btn-block" name="button"><p>Cadastrar Produto</p><p><i class="glyphicon glyphicon-plus"></i></p></a>
-		        </div>
-		
-		      </div>
-		
-		    <nav class="navbar navbar-default navbar-fixed-bottom navbar-cor">
-		      <div class="container-fluid">
-		      </div>
-		    </nav>
-    
-   	    </c:when> 
-   	    
-		<c:when test="${sessionScope.usuario == null}">
-			<h1 class="text-center"><c:out value="Você não possui acesso a esta opção."></c:out></h1>
-			<h2 class="text-center">Por favor, faça seu <a href="login.jsp">Login</a> e tente novamente.</h2>
-		</c:when>
-	    
-	</c:choose>  
+  
+    <nav class="navbar navbar-default navbar-fixed-top navbar-cor">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">
+            <img class="alinha-icone-navbar" src="imgs/icone-navbar.png" height="35">
+          </a>
+          <p class="navbar-text">Gerencia Estoque Show</p>
+        </div>
+
+        <ul class="nav navbar-nav">
+          <li><a href="RetornaFuncionarios">Funcionários</a></li>
+          <li><a class="active" href="RetornaProdutos">Produtos</a></li>
+          <li><a href="RetornaRequisicao">Requisições</a></li>
+        </ul>
+
+        <div class="pull-right">
+          <ul class="nav navbar-nav">
+            <li><a href="#">Usuário <i class="glyphicon glyphicon-user"></i></a></li>
+            <li><a href="#">Sair <i class="glyphicon glyphicon-remove"></i></a></li>
+          </ul>
+        </div>
+
+      </div>
+    </nav>
+
+   <div class="container-fluid">
+      <div class="row">
+
+        <div class="col-xs-12">
+          <ol class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li class="active"><a href="#">Produtos</a></li>
+          </ol>
+        </div>
+
+        <div class="col-xs-12">
+          <table class="table table-bordered">
+            <caption>Produtos Cadastrados:</caption>
+            <tr>
+              <th colspan="5">
+                <div style='width:100%;' class="input-group">
+                  <span class="input-group-addon">Nome:</span>
+                  <input type="text" class="form-control" placeholder="Pesquisar Produtos por Nome:">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                </div>
+              </th>
+            </tr>
+            <tr>
+              <th>ID:</th>
+              <th>Produto:</th>
+              <th>Quantidade:</th>
+              <th>Alterar:</th>
+              <th>Deletar:</th>
+            </tr>
+            <c:forEach items="${produtos}" var="produto" >
+                <tr> 
+                    <td><c:out value="${produto.codigo}" /></td> 
+                    <td><c:out value="${produto.nome}" /></td>
+                    <td>R$ <c:out value="${produto.preco}" /></td> 
+		            <td>
+		               <button class="btn btn-info btn-block alterar" name="button">
+		               Alterar Produto <span class="hidden codigo" name="codigo"><c:out value="${produto.codigo}"/></span>
+		               <i style="margin-left:5px;" class="glyphicon glyphicon-pencil"></i></button>
+		            </td>
+		            <td>
+		               <button class="btn btn-danger btn-block excluir" name="button">
+		               Excluir Produto <span class="hidden codigo" name="codigo"><c:out value="${produto.codigo}"/></span>
+		               <i style="margin-left:5px;" class="glyphicon glyphicon-remove"></i></button>
+		            </td>
+                </tr>
+            </c:forEach>
+          </table>
+
+        </div>
+        
+        <script>
+        
+        	$(document).on("click",".excluir",function(){
+        		var codigo = $(this).find("span").eq(0).text().trim();
+                $.ajax({
+                    url: 'ControllerProduto?codigo='+codigo,
+                    type: 'delete',
+                    success: function(result) {
+                    	alert("Produto Excluido com Suceso.");
+                    	location.reload();
+                    }, error:function(result){
+                    	alert("Ocorreu um Erro ao Excluir: "+ result);
+                    }
+                });     
+        	});    
+        	
+	       	$(document).on("click",".alterar",function(){
+	        	   var codigo = $(this).find("span").eq(0).text().trim();
+	               $.ajax({
+	                   url: 'ControllerProduto?update=s&codigo='+codigo,
+	                   type: 'post',
+	                   data:{codigo:codigo,update:"S"},
+	                   success: function(result) {
+	                	   //location.assign("cadastraProduto");
+	                	   console.log(result);
+	                   }, error:function(result){
+	                   	alert("Ocorreu um Erro ao Alterar: "+ result);
+	                   }
+	               });     
+	       	});    
+        	
+        </script>
+
+        <div class="col-xs-12">
+          <a href="cadastraProduto" class="btn btn-success btn-block" name="button"><p>Cadastrar Produto</p><p><i class="glyphicon glyphicon-plus"></i></p></a>
+        </div>
+
+      </div>
+
+    <nav class="navbar navbar-default navbar-fixed-bottom navbar-cor">
+      <div class="container-fluid">
+      </div>
+    </nav>
+
 
   </body>
 </html>

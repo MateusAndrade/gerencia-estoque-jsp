@@ -38,7 +38,7 @@ INSERT INTO requisicao( codigo_funcionario, codigo_produto, qtd_requisicao, data
 VALUES ( 1 , 1, 5 , CURDATE() , TIME(SYSDATE()) ,'P');
 
 INSERT INTO requisicao( codigo_funcionario, codigo_produto, qtd_requisicao, data_requisicao, hora_requisicao, status_requisicao)
-VALUES ( 1 , 2, 20 , CURDATE() , TIME(SYSDATE()) ,'P');
+VALUES ( 2 , 2, 5 , CURDATE() , TIME(SYSDATE()) ,'P');
 
 
 /*----------------------------------------- DDL ---------------------------------------------*/
@@ -57,7 +57,7 @@ BEGIN
     VALUES(nome,cpf,rg,fone,email,senha);
 END//
 
-CALL inserirFuncionario('Ana','111123','112113','11213','email@yahoo',21);
+CALL inserirFuncionario('Mateus','11123','12113','11213','EMAIL',21);
 
 DROP PROCEDURE IF EXISTS excluirFuncionario();
 
@@ -143,7 +143,7 @@ BEGIN
     VALUES(nome,quantidade,preco);
 END//
 
-CALL inserirProduto('Capa de Celular',0,10);
+CALL inserirProduto('Mouse',20,50);
 
 
 DROP PROCEDURE IF EXISTS excluirProduto;
@@ -169,68 +169,6 @@ END//
 
 CALL consultaProduto(7);
 
-SELECT * FROM requisicao
-
-
-
-SELECT * FROM funcionarios
-
-SELECT * FROM produtos
-
-DELIMITER //
-
-CREATE PROCEDURE consultaRequisicao()
-BEGIN
-	SELECT req.codigo_requisicao, func.nome_funcionario, prod.nome_produto , req.qtd_requisicao, req.data_requisicao, req.status_requisicao FROM requisicao req
-	INNER JOIN produtos prod
-	ON req.codigo_produto = prod.codigo_produto
-	INNER JOIN funcionarios func
-	ON req.codigo_funcionario = func.codigo_funcionario;
-END//
-
-CALL consultaRequisicao();
-
-INSERT INTO requisicao(codigo_funcionario, codigo_produto, qtd_requisicao,data_requisicao,hora_requisicao,status_requisicao)
- VALUES(2,1,15,CURDATE(),CURTIME(),'B')
-
-
-DROP PROCEDURE IF EXISTS inserirRequisicao;
-
-DELIMITER //
-
-CREATE PROCEDURE inserirRequisicao( IN cod_func INT, IN cod_prod INT, IN qtd INT )
-BEGIN
-	INSERT INTO requisicao(codigo_funcionario, codigo_produto, qtd_requisicao,data_requisicao,hora_requisicao,status_requisicao)
-	VALUES(cod_func,cod_prod,qtd,CURDATE(),CURTIME(),'P');
-END//
-
-CALL inserirRequisicao(1,2,80);
-
-DROP PROCEDURE IF EXISTS consultaSaidaCaixa;
-
-DELIMITER //
-
-CREATE PROCEDURE consultaSaidaCaixa()
-BEGIN
-	SELECT req.codigo_produto, prod.nome_produto, req.qtd_requisicao, SUM((req.qtd_requisicao*prod.preco_produto)) AS valor_caixa FROM requisicao req
-	INNER JOIN produtos prod
-	ON req.codigo_produto = prod.codigo_produto
-	GROUP BY prod.codigo_produto
-    ORDER BY valor_caixa DESC;
-END//
-
-CALL consultaSaidaCaixa();
-
-DROP PROCEDURE IF EXISTS consultaEstoqueBaixo;
-
-DELIMITER //
-
-CREATE PROCEDURE consultaEstoqueBaixo()
-BEGIN
-	SELECT * FROM produtos
-	WHERE quantidade_produto BETWEEN 5 AND 15
-	ORDER BY quantidade_produto;
-END//
-
+SELECT nome_funcionario FROM funcionarios
 
 /*----------------------------------------- DML ---------------------------------------------*/
