@@ -9,32 +9,34 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import estoque.persistence.FuncionarioDAOImpl;
 import estoque.persistence.IFuncionarioDAO;
+import estoque.persistence.IProdutoDAO;
+import estoque.persistence.IRequisicaoDAO;
+import estoque.persistence.ProdutoDAOImp;
+import estoque.persistence.RequisicaoDAOImpl;
 
-@WebServlet("/RetornaFuncionarios")
-public class RetornaFuncionarios extends HttpServlet {
+@WebServlet("/home")
+public class RetornaIndex extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private IFuncionarioDAO funcDAO = new FuncionarioDAOImpl();
-	
-	public RetornaFuncionarios() {
+    private IRequisicaoDAO reqDAO = new RequisicaoDAOImpl();
+    private IProdutoDAO prodDAO =  new ProdutoDAOImp();
+
+    public RetornaIndex() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-    		request.setAttribute("funcionarios", funcDAO.retornaFuncionarios());
-    		request.getRequestDispatcher("principal_funcionario.jsp").forward(request, response);	
+			request.setAttribute("produtos",prodDAO.listaEstoqueBaixo());
+			request.setAttribute("requisicoes",reqDAO.listaSaidaCaixa());
+			request.getRequestDispatcher("index.jsp").forward(request, response);	
 		} catch (SQLException e) {
-			System.out.println("Erro: "+e);
+			e.printStackTrace();
 		}
+
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

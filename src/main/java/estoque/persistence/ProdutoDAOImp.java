@@ -65,4 +65,24 @@ public class ProdutoDAOImp implements IProdutoDAO {
 		
 	}
 
+	@Override
+	public List<Produto> listaEstoqueBaixo() throws SQLException {
+		String sql = "Call consultaEstoqueBaixo();";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		List<Produto> listaProdutos = new ArrayList<Produto>();
+		while (rs.next()){
+			Produto prod = new Produto();
+			prod.setCodigo((rs.getInt("codigo_produto")));
+			prod.setNome((rs.getString("nome_produto")));
+			prod.setPreco((rs.getDouble("preco_produto")));
+			prod.setQuantidade((rs.getInt("quantidade_produto")));
+			listaProdutos.add(prod);
+		}
+		rs.close();
+		ps.close();
+		return listaProdutos;		
+		
+	}
+
 }

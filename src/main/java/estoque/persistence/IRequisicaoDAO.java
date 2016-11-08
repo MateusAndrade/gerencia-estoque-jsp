@@ -11,5 +11,6 @@ public interface IRequisicaoDAO {
 	public void estornaRequisicao( int codigo ) throws SQLException;
 	public void baixaRequisicao( int codigo ) throws SQLException;
 	public List<Requisicao> listaRequisicao(   ) throws SQLException;
+	public List<Requisicao> listaSaidaCaixa( ) throws SQLException;
 	
 }

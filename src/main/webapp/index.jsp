@@ -18,7 +18,7 @@
 		    <nav class="navbar navbar-default navbar-fixed-top navbar-cor">
 		      <div class="container-fluid">
 		        <div class="navbar-header">
-		          <a class="navbar-brand" href="">
+		          <a class="navbar-brand" href="home">
 		            <img class="alinha-icone-navbar" src="imgs/icone-navbar.png" height="35">
 		          </a>
 		          <p class="navbar-text">Gerencia Estoque Show</p>
@@ -34,7 +34,7 @@
 		          <ul class="nav navbar-nav">
 		            <li><a href="#"><c:out value="${sessionScope.usuario}" /><i class="glyphicon glyphicon-user"></i></a></li>
 		            <li>
-		            	<a href="<c:url value="login.jsp"/>">
+		            	<a href="<c:url value="login"/>">
 		            	Sair
 		            	 <i class="glyphicon glyphicon-remove"></i>
 		           	 	</a>
@@ -49,41 +49,74 @@
 		      <div class="row">
 		        <div class="col-xs-12">
 		          <ol class="breadcrumb">
-		            <li><a href="">Home</a></li>
+		            <li><a href="home">Home</a></li>
 		          </ol>
 		        </div>
 		        
 		        <div class="col-xs-12">
-		        	<p>Bem-Vindo <strong class="text-primary">Usuário</strong>, aqui estão algumas informações interessantes:</p>
+		        	<p>Bem-Vindo <strong class="text-primary"><c:out value="${sessionScope.usuario}" /></strong>, aqui estão algumas informações interessantes:</p>
 		        </div>
-		        
-		
+		        	
 		        <div class="col-xs-12">
-		          <table class="table table-bordered">
-		            <caption>Últimas Requisições solicitadas:</caption>
+		          <table id="table-caixa" class="table table-bordered">
+		            <caption>Produtos com maior Saída de Caixa:</caption>
 		            <tr>
+		              <th colspan="5">
+		                <div style='width:100%;' class="input-group">
+		                  <span class="input-group-addon">Nome:</span>
+		                  <input id="filtroCaixa" type="text" class="form-control" placeholder="Pesquisar Produtos por Nome:">
+		                  <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+		                </div>
+		              </th>
+		            </tr>
+		            <tr class="success">
 		              <th>ID:</th>
 		              <th>Produto:</th>
-		              <th>Hora:</th>
+		              <th>Saída:</th>
+		              <th>Quantidade:</th>
 		            </tr>
-		            <tr>
-		              <td>01</td>
-		              <td>Escova</td>
-		              <td>23:15:01</td>
-		            </tr>
-		            <tr>
-		              <td>01</td>
-		              <td>Escova</td>
-		              <td>23:15:01</td>
-		            </tr>
-		            <tr>
-		              <td>01</td>
-		              <td>Escova</td>
-		              <td>23:15:01</td>
-		            </tr>
-		
+		            <tbody>
+		            <c:forEach items="${requisicoes}" var="req" >
+		                <tr class="requisicao"> 	                
+		                    <td><c:out value="${req.prod.codigo}" /></td> 
+		                    <td><c:out value="${req.prod.nome}" /></td>
+		                    <td >R$ <span class="preco-req"><c:out value="${req.prod.preco}" /></span></td>
+		                    <td><c:out value="${req.qtd_requisicao}" /></td> 
+		                </tr>
+		            </c:forEach>		            
+		            </tbody>
+
 		          </table>
 		        </div>
+		        
+		        <div class="col-xs-12">
+		          <table class="table table-bordered">
+		            <caption>Produtos com Estoque baixo:</caption>
+		            <tr>
+		              <th colspan="5">
+		                <div style='width:100%;' class="input-group">
+		                  <span class="input-group-addon">Nome:</span>
+		                  <input type="text" class="form-control" placeholder="Pesquisar Produtos por Nome:">
+		                  <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+		                </div>
+		              </th>
+		            </tr>
+		            <tr class="danger">
+		              <th>ID:</th>
+		              <th>Produto:</th>
+		              <th>Preço:</th>
+		              <th>Quantidade:</th>
+		            </tr>
+		            <c:forEach items="${produtos}" var="produto" >
+		                <tr> 	                
+		                    <td><c:out value="${produto.codigo}" /></td> 
+		                    <td><c:out value="${produto.nome}" /></td>
+		                    <td>R$ <c:out value="${produto.preco}" /></td>
+		                    <td><c:out value="${produto.quantidade}" /></td> 
+		                </tr>
+		            </c:forEach>
+		          </table>
+		        </div>		        
 		
 		      </div>
 		
@@ -93,10 +126,27 @@
 		      <div class="container-fluid">
 		      </div>
 		    </nav>
+		    
+		    <script>
+		    	
+			    var $rows = $('#table-caixa tr');
+			    $('#filtroCaixa').keyup(function() {
+			        var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+			        
+			        $rows.show().filter(function() {
+			            var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+			            return !~text.indexOf(val);
+			        }).hide();
+			    });
+			    
+		    </script>
+
+		    
 	    </c:when>
 	    
 		<c:when test="${sessionScope.usuario == null}">
-			<h1><c:out value="Você não possui acesso a esta opção."></c:out></h1>
+			<h1 class="text-center"><c:out value="Você não possui acesso a esta opção."></c:out></h1>
+			<h2 class="text-center">Por favor, faça seu <a href="login.jsp">Login</a> e tente novamente.</h2>
 		</c:when>
 	    
 	</c:choose>  

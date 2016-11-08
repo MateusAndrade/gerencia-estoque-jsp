@@ -143,7 +143,7 @@ BEGIN
     VALUES(nome,quantidade,preco);
 END//
 
-CALL inserirProduto('Caixa de Som',100,15);
+CALL inserirProduto('Capa de Celular',0,10);
 
 
 DROP PROCEDURE IF EXISTS excluirProduto;
@@ -206,6 +206,31 @@ END//
 
 CALL inserirRequisicao(1,2,80);
 
-SELECT * FROM requisicao
+DROP PROCEDURE IF EXISTS consultaSaidaCaixa;
+
+DELIMITER //
+
+CREATE PROCEDURE consultaSaidaCaixa()
+BEGIN
+	SELECT req.codigo_produto, prod.nome_produto, req.qtd_requisicao, SUM((req.qtd_requisicao*prod.preco_produto)) AS valor_caixa FROM requisicao req
+	INNER JOIN produtos prod
+	ON req.codigo_produto = prod.codigo_produto
+	GROUP BY prod.codigo_produto
+    ORDER BY valor_caixa DESC;
+END//
+
+CALL consultaSaidaCaixa();
+
+DROP PROCEDURE IF EXISTS consultaEstoqueBaixo;
+
+DELIMITER //
+
+CREATE PROCEDURE consultaEstoqueBaixo()
+BEGIN
+	SELECT * FROM produtos
+	WHERE quantidade_produto BETWEEN 5 AND 15
+	ORDER BY quantidade_produto;
+END//
+
 
 /*----------------------------------------- DML ---------------------------------------------*/
