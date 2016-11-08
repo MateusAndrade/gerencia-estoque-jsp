@@ -60,6 +60,7 @@ public class ServletProduto extends HttpServlet {
 			prod.setQuantidade(Integer.parseInt(request.getParameter("quantidade")));
 			produtoDAO.alterarProduto(prod);
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

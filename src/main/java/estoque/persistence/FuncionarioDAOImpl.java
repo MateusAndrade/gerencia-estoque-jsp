@@ -19,12 +19,27 @@ public class FuncionarioDAOImpl implements IFuncionarioDAO {
 	
 	@Override
 	public void adicionarFuncionario(Funcionario func) throws SQLException {
-		//FAZER	
+		String sql = "CALL inserirFuncionario(?, ?, ?, ?, ?, ?);";
+		
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, func.getNome());
+		ps.setString(2, func.getCpf());
+		ps.setString(3, func.getRg());
+		ps.setString(4, func.getTelefone());
+		ps.setString(5, func.getEmail());
+		ps.setInt(6, func.getSenha());
+		ps.execute();
+		ps.close();	
 	}
 
 	@Override
-	public void excluirFuncionario(int codigo) throws SQLException {
-		// TODO Auto-generated method stub
+	public void excluirFuncionario(Funcionario func) throws SQLException {
+		String sql = "DELETE FROM funcionarios WHERE codigo_funcionario = ?";
+		
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, func.getCodigo());
+		ps.execute();
+		ps.close();
 		
 	}
 

@@ -7,10 +7,9 @@ import estoque.model.Requisicao;
 
 public interface IRequisicaoDAO {
 
-	public void geraRequisicao( Requisicao req ) throws SQLException;
-	public void estornaRequisicao( int codigo ) throws SQLException;
-	public void baixaRequisicao( int codigo ) throws SQLException;
-	public List<Requisicao> listaRequisicao(   ) throws SQLException;
-	public List<Requisicao> listaSaidaCaixa( ) throws SQLException;
-	
+	public void geraRequiscao( Requisicao req ) throws SQLException;
+	public void baixaRequisicao( Requisicao req ) throws SQLException;
+	public void cancelarRequisicao( Requisicao req ) throws SQLException;
+	public List<Requisicao> listaRequisicao( String nome ) throws SQLException;
+
 }
