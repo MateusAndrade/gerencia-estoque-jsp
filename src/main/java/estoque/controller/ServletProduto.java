@@ -24,9 +24,8 @@ import estoque.persistence.ProdutoDAOImp;
 public class ServletProduto extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	IProdutoDAO produtoDAO =  new ProdutoDAOImp();
-	Produto prod = new Produto();
-	Gson gson =  new Gson();
+	private IProdutoDAO produtoDAO =  new ProdutoDAOImp();
+	private Produto prod = new Produto();
 	
     public ServletProduto() {
         super();
@@ -48,20 +47,10 @@ public class ServletProduto extends HttpServlet {
 		try {
 			produtoDAO.adicionarProduto(prod);
 			response.sendRedirect("ControllerProduto");
+			System.out.println("Insert");
 		} catch (SQLException e) {
 			e.printStackTrace();;
 		}					
-	}
-
-	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			prod.setNome(request.getParameter("nome"));
-			prod.setPreco(Double.parseDouble(request.getParameter("preco")));
-			prod.setQuantidade(Integer.parseInt(request.getParameter("quantidade")));
-			produtoDAO.alterarProduto(prod);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

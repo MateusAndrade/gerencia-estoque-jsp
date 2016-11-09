@@ -12,7 +12,7 @@
   </head>
   <body>
   	<c:choose> 
-		<c:when test="${sessionScope.usuario != null}">  
+		<c:when test="${sessionScope.usuario == null}">  
 		    <nav class="navbar navbar-default navbar-fixed-top navbar-cor">
 		      <div class="container-fluid">
 		        <div class="navbar-header">
@@ -73,9 +73,9 @@
 		                    <td><c:out value="${produto.nome}" /></td>
 		                    <td>R$ <c:out value="${produto.preco}" /></td> 
 				            <td>
-				               <button class="btn btn-info btn-block alterar" name="button">
-				               Alterar Produto <span class="hidden codigo" name="codigo"><c:out value="${produto.codigo}"/></span>
-				               <i style="margin-left:5px;" class="glyphicon glyphicon-pencil"></i></button>
+				               <a href="AtualizaProduto?codigo=${produto.codigo}" class="btn btn-info btn-block alterar" name="button">
+				               Alterar Produto
+				               <i style="margin-left:5px;" class="glyphicon glyphicon-pencil"></i></a>
 				            </td>
 				            <td>
 				               <button class="btn btn-danger btn-block excluir" name="button">
@@ -104,20 +104,20 @@
 		                });     
 		        	});    
 		        	
-			       	$(document).on("click",".alterar",function(){
+/*			       	$(document).on("click",".alterar",function(){
 			        	   var codigo = $(this).find("span").eq(0).text().trim();
 			               $.ajax({
-			                   url: 'ControllerProduto?update=s&codigo='+codigo,
-			                   type: 'post',
-			                   data:{codigo:codigo,update:"S"},
+			                   url: 'AtualizaProduto',
+			                   type: 'POST',
+			                   data:{codigo:codigo,update:"s"},
 			                   success: function(result) {
-			                	   //location.assign("cadastraProduto");
+			                	   location.assign("AtualizaProduto");
 			                	   console.log(result);
 			                   }, error:function(result){
 			                   	alert("Ocorreu um Erro ao Alterar: "+ result);
 			                   }
 			               });     
-			       	});    
+			       	});    */
 		        	
 		        </script>
 		

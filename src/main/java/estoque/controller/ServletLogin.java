@@ -33,7 +33,6 @@ public class ServletLogin extends HttpServlet {
 		func.setSenha(Integer.parseInt(request.getParameter("senha")));
 		try {
 			if(funcDAO.verificaLogin(func).getNome() !=  null){
-				String usuario = "Mateus";
 				sessao.setAttribute("usuario",funcDAO.verificaLogin(func).getNome());
 	    		request.getRequestDispatcher("home").forward(request, response);	
 			} else {

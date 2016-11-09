@@ -13,8 +13,10 @@
     <script src="js/bootstrap.min.js" charset="utf-8"></script>
   </head>
   <body>
+  
   	<c:choose> 
-		<c:when test="${sessionScope.usuario != null}">
+		<c:when test="${sessionScope.usuario == null}">
+ 		    <c:set var="produto" scope="request" value="${produto}"/>	
 		    <nav class="navbar navbar-default navbar-fixed-top navbar-cor">
 		      <div class="container-fluid">
 		        <div class="navbar-header">
@@ -51,15 +53,22 @@
 		          </ol>
 		        </div>
 		        
-		
 		        <div class="col-xs-12">
-		
-		          <form action="ControllerProduto" method="post">
-		            <div class="form-group">
+				   <c:choose>
+				      <c:when test="${produto == null}">
+				          <form action="ControllerProduto" method="post">				      
+				      </c:when>
+				
+				      <c:otherwise>
+				          <form action="AtualizaProduto" method="post">
+				      </c:otherwise>
+				    </c:choose>	    
+			        <input name="codigo" type="text" value="${produto.codigo}" />      
+		            <div class="form-group">   
 		              <div class="row">
 		                <div class="col-xs-12">
 		                  <label for="nome">Nome:</label>
-		                  <input required type="text" class="form-control" name="nome" placeholder="Insira um Nome para o Produto:">
+		                  <input value="${produto.nome}" required type="text" class="form-control" name="nome" placeholder="Insira um Nome para o Produto:">
 		                </div>
 		              </div>
 		            </div>
@@ -68,13 +77,13 @@
 		              <div class="row">
 		                <div class="col-xs-6">
 		                  <label for="quantidade">Quantidade:</label>
-		                  <input required type="number" class="form-control" name="quantidade" placeholder="Insira uma Quantidade:">
+		                  <input value="${produto.quantidade}" required type="number" class="form-control" name="quantidade" placeholder="Insira uma Quantidade:">
 		                </div>
 		                <div class="col-xs-6">
 			              <label for="preco">Preço:</label>
 		                  <div style='width:100%;' class="input-group">
 		                  <span class="input-group-addon"><strong>R$</strong></span>
-		    	              <input required type="text" class="form-control" name="preco" placeholder="Insira um Preço">
+		    	              <input value="${produto.preco}" required type="text" class="form-control" name="preco" placeholder="Insira um Preço">
 		    	           </div>
 		                </div>    
 		              </div>
@@ -83,7 +92,17 @@
 		            <div class="form-group">
 		              <div class="row">
 		                <div class="col-xs-6">
-		                  <button type="submit" class="btn btn-success btn-block"><p>Cadastrar Produto</p><p><i class="glyphicon glyphicon-ok"></i></p></button>
+		                  <button type="submit" class="btn btn-success btn-block">
+						    <c:choose>
+						      <c:when test="${produto == null}">
+				                  <p>Cadastrar Produto</p><p><i class="glyphicon glyphicon-ok"></i></p>						      
+						      </c:when>
+						
+						      <c:otherwise>
+				                  <p>Alterar Produto</p><p><i class="glyphicon glyphicon-ok"></i></p>
+						      </c:otherwise>
+						    </c:choose>
+		                  </button>
 		                </div>
 		                <div class="col-xs-6">
 		                  <button type="exit" class="btn btn-danger btn-block"><p>Cancelar</p><p><i class="glyphicon glyphicon-remove"></i></p></button>

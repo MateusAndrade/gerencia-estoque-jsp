@@ -232,5 +232,17 @@ BEGIN
 	ORDER BY quantidade_produto;
 END//
 
+DELIMITER //
+
+CREATE PROCEDURE updateProduto(IN codigo INT, IN nome VARCHAR(20), IN qtd INT, IN preco FLOAT)
+BEGIN
+	UPDATE produtos
+    SET nome_produto = nome, preco_produto = preco, quantidade_produto = qtd
+    WHERE codigo_produto = codigo;
+END//
+
+Call updateProduto(6,'Teclado sem Fio',2,50);
+
+SELECT * FROM produtos;
 
 /*----------------------------------------- DML ---------------------------------------------*/

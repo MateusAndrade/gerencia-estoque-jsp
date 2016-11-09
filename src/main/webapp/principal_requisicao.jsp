@@ -1,6 +1,7 @@
 0<?xml version="1.0" encoding="UTF-8" ?>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
@@ -52,7 +53,7 @@
 		          <table class="table table-bordered">
 		            <caption>Requisições Registradas:</caption>
 		            <tr>
-		              <th colspan="7">
+		              <th colspan="9">
 		                <div style='width:100%;' class="input-group">
 		                  <span class="input-group-addon">Nome:</span>
 		                  <input type="text" class="form-control" placeholder="Filtrar Requisições por Código:">
@@ -67,7 +68,7 @@
 		              <th>Quantidade:</th>
 		              <th>Data:</th>
 		              <th>Status:</th>
-		              <th>Baixar:</th>
+		              <th>Opções:</th>
 		            </tr>
 		            <c:forEach items="${requisicoes}" var="requisicao" >
 		                <tr> 
@@ -75,7 +76,9 @@
 		                    <td><c:out value="${requisicao.func.nome}" /></td> 
 		                    <td><c:out value="${requisicao.prod.nome}" /></td> 
 		                    <td><c:out value="${requisicao.qtd_requisicao}" /></td> 
-		                    <td><c:out value="${requisicao.data_requisicao}" /></td> 
+		                    <td>
+							    <fmt:formatDate type="both"  dateStyle="short" timeStyle="short" value="${requisicao.data_requisicao}" />
+		                    </td> 
 							<c:set var="status" value="${requisicao.status}"/>
 							<c:if test="${requisicao.status == 'P'}">
 								<td style="color:white; background:#EF5350;">
@@ -92,19 +95,28 @@
 		                   			<strong><c:out value="${requisicao.status}" /></strong>						
 								</td>
 								<td>
-					               <button class="btn btn-danger btn-block estornar" name="button">
+					               <button class="btn btn-warning btn-block estornar" name="button">
 					               Estornar Requisição <span class="hidden codigo" name="codigo"><c:out value="${requisicao.codigo_requisicao}"/></span>
 					               <i style="margin-left:5px;" class="glyphicon glyphicon-pencil"></i></button>	
-								</td>  						
-		                   	</c:if>                        	                                  
+								</td>  					
+		                   	</c:if>     
+							<td>
+				               <button class="btn btn-danger btn-block estornar" name="button">
+				               Cancelar Requisição <span class="hidden codigo" name="codigo"><c:out value="${requisicao.codigo_requisicao}"/></span>
+				               <i style="margin-left:5px;" class="glyphicon glyphicon glyphicon-remove"></i></button>									
+							</td>	                   	                                  
 		                </tr>
 		            </c:forEach>        
 		          </table>
 		
 		        </div>
 		        
-		        <div class="col-xs-12">
+		        <div class="col-xs-6">
 		          <a href="cadastraRequisicao" id="btn" class="btn btn-success btn-block" name="button"><p>Gerar Requisição</p><p><i class="glyphicon glyphicon-plus"></i></p></a>
+		        </div>
+		        
+		        <div class="col-xs-6">
+		          <a href="#" id="btn" class="btn btn-info btn-block" name="button"><p>Gerar Relatório</p><p><i class="glyphicon glyphicon glyphicon-print"></i></p></a>
 		        </div>
 		
 		      </div>

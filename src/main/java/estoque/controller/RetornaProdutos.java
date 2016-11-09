@@ -23,7 +23,7 @@ public class RetornaProdutos extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	try {
-    		request.setAttribute("produtos", prodDAO.listarProdutos());
+    		request.setAttribute("produtos", prodDAO.listarProdutos()); 		
     		request.getRequestDispatcher("principal_produto.jsp").forward(request, response);	
 		} catch (SQLException e) {
 			System.out.println("Erro: "+e);
