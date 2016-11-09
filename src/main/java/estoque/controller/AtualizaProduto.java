@@ -38,10 +38,10 @@ public class AtualizaProduto extends HttpServlet {
 		prod.setCodigo(Integer.parseInt(request.getParameter("codigo")));
 		prod.setNome(request.getParameter("nome"));
 		prod.setPreco(Double.parseDouble(request.getParameter("preco")));
-		prod.setQuantidade(Integer.parseInt(request.getParameter("quantidade")));
-		System.out.println("Update");
+		prod.setQuantidade(Integer.parseInt(request.getParameter("quantidade")));		
 		try {
 			prodDAO.alterarProduto(prod);
+			response.sendRedirect("RetornaProdutos");
 			System.out.println("Update");
 		} catch (SQLException e) {
 			System.out.println("Erro SQL: "+e);

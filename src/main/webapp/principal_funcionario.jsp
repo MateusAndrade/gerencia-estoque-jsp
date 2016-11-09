@@ -50,17 +50,20 @@
 		
 		        <div class="col-xs-12">
 		          <table class="table table-bordered">
+		          	<thead>
+		          	
+		          	</thead>
 		            <caption>Funcionários Cadastrados:</caption>
 		            <tr>
 		              <th colspan="6">
 		                <div style='width:100%;' class="input-group">
 		                  <span class="input-group-addon">Nome:</span>
-		                  <input type="text" class="form-control" placeholder="Pesquisar Funcionários por Nome:">
+		                  <input id="filtroFunc" type="text" class="form-control" placeholder="Pesquisar Funcionários por Nome:">
 		                  <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
 		                </div>
 		              </th>
 		            </tr>
-		            <tr>
+		            <tr class="info">
 		              <th>ID:</th>
 		              <th>Nome:</th>
 		              <th>Telefone:</th>
@@ -68,31 +71,36 @@
 		              <th>Alterar:</th>
 		              <th>Deletar:</th>
 		            </tr>
-		            <c:out value="${teste}"/>
-		            <c:forEach items="${funcionarios}" var="funcionario" >
-		                <tr> 
-		                    <td><c:out value="${funcionario.codigo}" /></td> 
-		                    <td><c:out value="${funcionario.nome}" /></td>
-		                    <td><c:out value="${funcionario.telefone}" /></td>
-		                    <td><c:out value="${funcionario.email}" /></td>
-				            <td>
-				               <button class="btn btn-info btn-block alterar" name="button">
-				               Alterar Funcionário <span class="hidden codigo" name="codigo"><c:out value="${funcionario.codigo}"/></span>
-				               <i style="margin-left:5px;" class="glyphicon glyphicon-pencil"></i></button>
-				            </td>
-				            <td>
-				               <button class="btn btn-danger btn-block excluir" name="button">
-				               Excluir Funcionário <span class="hidden codigo" name="codigo"><c:out value="${funcionario.codigo}"/></span>
-				               <i style="margin-left:5px;" class="glyphicon glyphicon-remove"></i></button>
-				            </td>
-		                </tr>
-		            </c:forEach>
+		            <tbody id="table-func">
+			            <c:forEach items="${funcionarios}" var="funcionario" >
+			                <tr> 
+			                    <td><c:out value="${funcionario.codigo}" /></td> 
+			                    <td><c:out value="${funcionario.nome}" /></td>
+			                    <td><c:out value="${funcionario.telefone}" /></td>
+			                    <td><c:out value="${funcionario.email}" /></td>
+					            <td>
+					               <button class="btn btn-info btn-block alterar" name="button">
+					               Alterar Funcionário <span class="hidden codigo" name="codigo"><c:out value="${funcionario.codigo}"/></span>
+					               <i style="margin-left:5px;" class="glyphicon glyphicon-pencil"></i></button>
+					            </td>
+					            <td>
+					               <button class="btn btn-danger btn-block excluir" name="button">
+					               Excluir Funcionário <span class="hidden codigo" name="codigo"><c:out value="${funcionario.codigo}"/></span>
+					               <i style="margin-left:5px;" class="glyphicon glyphicon-remove"></i></button>
+					            </td>
+			                </tr>
+			            </c:forEach>		            
+		            </tbody>
 		          </table>
 		
 		        </div>
 		
-		        <div class="col-xs-12">
+		        <div class="col-xs-6">
 		          <a href="cadastraProduto" class="btn btn-success btn-block" name="button"><p>Cadastrar Produto</p><p><i class="glyphicon glyphicon-plus"></i></p></a>
+		        </div>
+		
+		        <div class="col-xs-6">
+		          <a href="#" id="btn" class="btn btn-info btn-block" name="button"><p>Gerar Relatório</p><p><i class="glyphicon glyphicon glyphicon-print"></i></p></a>
 		        </div>
 		
 		      </div>
@@ -110,6 +118,20 @@
 		</c:when>
 	    
 	</c:choose>  
+	
+	<script>
+
+	    var $func = $('#table-func tr');
+	    $('#filtroFunc').keyup(function() {
+	        var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+	        
+	        $func.show().filter(function() {
+	            var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+	            return !~text.indexOf(val);
+	        }).hide();
+	    });
+	
+	</script>
 
   </body>
 </html>

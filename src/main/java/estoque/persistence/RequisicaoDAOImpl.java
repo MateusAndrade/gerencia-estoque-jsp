@@ -98,4 +98,13 @@ public class RequisicaoDAOImpl implements IRequisicaoDAO {
 		return listaRequisicao;
 	}
 
+	@Override
+	public void cancelaRequisicao(int codigo) throws SQLException {
+		String sql = "CALL excluirRequisicao(?);";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, codigo);
+		ps.execute();
+		ps.close();
+	}
+
 }

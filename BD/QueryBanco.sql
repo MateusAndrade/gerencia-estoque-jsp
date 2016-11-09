@@ -1,5 +1,3 @@
-/*----------------------------------------- DDL ---------------------------------------------*/
-
 CREATE DATABASE estoque
 
 USE estoque
@@ -40,13 +38,6 @@ VALUES ( 1 , 1, 5 , CURDATE() , TIME(SYSDATE()) ,'P');
 INSERT INTO requisicao( codigo_funcionario, codigo_produto, qtd_requisicao, data_requisicao, hora_requisicao, status_requisicao)
 VALUES ( 1 , 2, 20 , CURDATE() , TIME(SYSDATE()) ,'P');
 
-
-/*----------------------------------------- DDL ---------------------------------------------*/
-
-/*----------------------------------------- DML ---------------------------------------------*/
-
-/* DML Para Funcionario */
-
 DROP PROCEDURE IF EXISTS inserirFuncionario;
 
 DELIMITER //
@@ -57,7 +48,7 @@ BEGIN
     VALUES(nome,cpf,rg,fone,email,senha);
 END//
 
-CALL inserirFuncionario('Ana','111123','112113','11213','email@yahoo',21);
+/*CALL inserirFuncionario('Ana','111123','112113','11213','email@yahoo',21);*/
 
 DROP PROCEDURE IF EXISTS excluirFuncionario();
 
@@ -68,7 +59,7 @@ BEGIN
 	DELETE FROM funcionarios WHERE codigo_funcionario = 4;
 END//
 
-CALL excluirFuncionario(2);
+/*CALL excluirFuncionario(2);*/
 
 
 DROP PROCEDURE IF EXISTS consultarFuncionarioCodigo;
@@ -80,10 +71,7 @@ BEGIN
 	SELECT codigo_funcionario,nome_funcionario,cpf_funcionario,rg_funcionario,telefone_funcionario,email_funcionario FROM funcionarios WHERE codigo_funcionario = cod;
 END//
 
-CALL consultarFuncionarioCodigo(1);
-
-
-SELECT * FROM funcionarios
+/*CALL consultarFuncionarioCodigo(1);*/
 
 DROP PROCEDURE IF EXISTS consultarFuncionarioNome;
 
@@ -94,7 +82,7 @@ BEGIN
 	SELECT codigo_funcionario,nome_funcionario,cpf_funcionario,rg_funcionario,telefone_funcionario,email_funcionario FROM funcionarios WHERE nome_funcionario LIKE nome;
 END//
 
-CALL consultarFuncionarioNome('Mateus');
+/*CALL consultarFuncionarioNome('Mateus');*/
 
 
 DROP PROCEDURE IF EXISTS consultarFuncionarioTabela;
@@ -106,8 +94,7 @@ BEGIN
 	SELECT codigo_funcionario,nome_funcionario,cpf_funcionario,email_funcionario FROM funcionarios;
 END//
 
-CALL consultarFuncionarioTabela();
-
+/*CALL consultarFuncionarioTabela();*/
 
 DROP PROCEDURE IF EXISTS updateFuncionario;
 
@@ -129,10 +116,6 @@ BEGIN
 	SELECT codigo_funcionario,nome_funcionario,cpf_funcionario,rg_funcionario,telefone_funcionario,email_funcionario FROM funcionarios WHERE cpf_funcionario = cpf AND senha = senha;
 END//
 
-/* Adicionar handler para manipular mensagem http://www.mysqltutorial.org/mysql-error-handling-in-stored-procedures/ */
-
-/* DML Para Funcionario */
-
 DROP PROCEDURE IF EXISTS inserirProduto;
 
 DELIMITER //
@@ -143,8 +126,7 @@ BEGIN
     VALUES(nome,quantidade,preco);
 END//
 
-CALL inserirProduto('Capa de Celular',0,10);
-
+/*CALL inserirProduto('Capa de Celular',0,10);*/
 
 DROP PROCEDURE IF EXISTS excluirProduto;
 
@@ -155,8 +137,7 @@ BEGIN
 	DELETE FROM produtos WHERE codigo_produto = cod;
 END//
 
-CALL excluirProduto(13);
-
+/*CALL excluirProduto(13);*/
 
 DROP PROCEDURE IF EXISTS consultaProduto;
 
@@ -167,15 +148,7 @@ BEGIN
 	SELECT * FROM produtos WHERE codigo_produto = cod;
 END//
 
-CALL consultaProduto(7);
-
-SELECT * FROM requisicao
-
-
-
-SELECT * FROM funcionarios
-
-SELECT * FROM produtos
+/*CALL consultaProduto(7);*/
 
 DELIMITER //
 
@@ -188,11 +161,7 @@ BEGIN
 	ON req.codigo_funcionario = func.codigo_funcionario;
 END//
 
-CALL consultaRequisicao();
-
-INSERT INTO requisicao(codigo_funcionario, codigo_produto, qtd_requisicao,data_requisicao,hora_requisicao,status_requisicao)
- VALUES(2,1,15,CURDATE(),CURTIME(),'B')
-
+/*CALL consultaRequisicao();*/
 
 DROP PROCEDURE IF EXISTS inserirRequisicao;
 
@@ -219,7 +188,7 @@ BEGIN
     ORDER BY valor_caixa DESC;
 END//
 
-CALL consultaSaidaCaixa();
+/*CALL consultaSaidaCaixa();*/
 
 DROP PROCEDURE IF EXISTS consultaEstoqueBaixo;
 
@@ -241,8 +210,15 @@ BEGIN
     WHERE codigo_produto = codigo;
 END//
 
-Call updateProduto(6,'Teclado sem Fio',2,50);
+/*Call updateProduto(6,'Teclado sem Fio',2,50);*/
 
-SELECT * FROM produtos;
+DROP PROCEDURE IF EXISTS excluirRequisicao;
 
-/*----------------------------------------- DML ---------------------------------------------*/
+DELIMITER //
+
+CREATE PROCEDURE excluirRequisicao( IN cod INT )
+BEGIN
+	DELETE FROM requisicao WHERE codigo_requisicao = cod;
+END//
+
+/* Adicionar handler para manipular mensagem http://www.mysqltutorial.org/mysql-error-handling-in-stored-procedures/ */

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
@@ -12,7 +13,7 @@
   </head>
   <body>
   	<c:choose> 
-		<c:when test="${sessionScope.usuario == null}">  
+		<c:when test="${sessionScope.usuario != null}">  
 		    <nav class="navbar navbar-default navbar-fixed-top navbar-cor">
 		      <div class="container-fluid">
 		        <div class="navbar-header">
@@ -50,40 +51,48 @@
 		
 		        <div class="col-xs-12">
 		          <table class="table table-bordered">
-		            <caption>Produtos Cadastrados:</caption>
-		            <tr>
-		              <th colspan="5">
-		                <div style='width:100%;' class="input-group">
-		                  <span class="input-group-addon">Nome:</span>
-		                  <input type="text" class="form-control" placeholder="Pesquisar Produtos por Nome:">
-		                  <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-		                </div>
-		              </th>
-		            </tr>
-		            <tr>
-		              <th>ID:</th>
-		              <th>Produto:</th>
-		              <th>Quantidade:</th>
-		              <th>Alterar:</th>
-		              <th>Deletar:</th>
-		            </tr>
-		            <c:forEach items="${produtos}" var="produto" >
-		                <tr> 
-		                    <td><c:out value="${produto.codigo}" /></td> 
-		                    <td><c:out value="${produto.nome}" /></td>
-		                    <td>R$ <c:out value="${produto.preco}" /></td> 
-				            <td>
-				               <a href="AtualizaProduto?codigo=${produto.codigo}" class="btn btn-info btn-block alterar" name="button">
-				               Alterar Produto
-				               <i style="margin-left:5px;" class="glyphicon glyphicon-pencil"></i></a>
-				            </td>
-				            <td>
-				               <button class="btn btn-danger btn-block excluir" name="button">
-				               Excluir Produto <span class="hidden codigo" name="codigo"><c:out value="${produto.codigo}"/></span>
-				               <i style="margin-left:5px;" class="glyphicon glyphicon-remove"></i></button>
-				            </td>
-		                </tr>
-		            </c:forEach>
+		          	<thead>
+			            <caption>Produtos Cadastrados:</caption>
+			            <tr>
+			              <th colspan="5">
+			                <div style='width:100%;' class="input-group">
+			                  <span class="input-group-addon">Nome:</span>
+			                  <input id="filtroProduto" type="text" class="form-control" placeholder="Pesquisar Produtos por Nome:">
+			                  <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+			                </div>
+			              </th>
+			            </tr>
+			            <tr class="info">
+			              <th>ID:</th>
+			              <th>Produto:</th>
+			              <th>Quantidade:</th>
+			              <th>Alterar:</th>
+			              <th>Deletar:</th>
+			            </tr>		          	
+		          	</thead>
+					<tbody id="table-produto">
+			            <c:forEach items="${produtos}" var="produto" >
+			                <tr> 
+			                    <td><c:out value="${produto.codigo}" /></td> 
+			                    <td><c:out value="${produto.nome}" /></td>
+			                    <td>
+									<fmt:setLocale value="pt_BR"/>
+									<fmt:formatNumber value="${produto.preco}" type="currency"/> 
+			                    </td> 
+			                    <td>
+					               <a href="AtualizaProduto?codigo=${produto.codigo}" class="btn btn-info btn-block alterar" name="button">
+					               Alterar Produto
+					               <i style="margin-left:5px;" class="glyphicon glyphicon-pencil"></i></a>
+					            </td>
+					            <td>
+					               <button class="btn btn-danger btn-block excluir" name="button">
+					               Excluir Produto <span class="hidden codigo" name="codigo"><c:out value="${produto.codigo}"/></span>
+					               <i style="margin-left:5px;" class="glyphicon glyphicon-remove"></i></button>
+					            </td>
+			                </tr>
+			            </c:forEach>					
+					</tbody>
+
 		          </table>
 		
 		        </div>
@@ -104,25 +113,24 @@
 		                });     
 		        	});    
 		        	
-/*			       	$(document).on("click",".alterar",function(){
-			        	   var codigo = $(this).find("span").eq(0).text().trim();
-			               $.ajax({
-			                   url: 'AtualizaProduto',
-			                   type: 'POST',
-			                   data:{codigo:codigo,update:"s"},
-			                   success: function(result) {
-			                	   location.assign("AtualizaProduto");
-			                	   console.log(result);
-			                   }, error:function(result){
-			                   	alert("Ocorreu um Erro ao Alterar: "+ result);
-			                   }
-			               });     
-			       	});    */
+				    var $prod = $('#table-produto tr');
+				    $('#filtroProduto').keyup(function() {
+				        var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+				        
+				        $prod.show().filter(function() {
+				            var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+				            return !~text.indexOf(val);
+				        }).hide();
+				    });	
 		        	
 		        </script>
 		
-		        <div class="col-xs-12">
+		        <div class="col-xs-6">
 		          <a href="cadastraProduto" class="btn btn-success btn-block" name="button"><p>Cadastrar Produto</p><p><i class="glyphicon glyphicon-plus"></i></p></a>
+		        </div>
+		        
+		        <div class="col-xs-6">
+		          <a href="#" id="btn" class="btn btn-info btn-block" name="button"><p>Gerar Relatório</p><p><i class="glyphicon glyphicon glyphicon-print"></i></p></a>
 		        </div>
 		
 		      </div>

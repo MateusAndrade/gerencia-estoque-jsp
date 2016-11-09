@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
@@ -15,7 +16,7 @@
   <body>
   
   	<c:choose> 
-		<c:when test="${sessionScope.usuario == null}">
+		<c:when test="${sessionScope.usuario != null}">
  		    <c:set var="produto" scope="request" value="${produto}"/>	
 		    <nav class="navbar navbar-default navbar-fixed-top navbar-cor">
 		      <div class="container-fluid">
@@ -63,7 +64,7 @@
 				          <form action="AtualizaProduto" method="post">
 				      </c:otherwise>
 				    </c:choose>	    
-			        <input name="codigo" type="text" value="${produto.codigo}" />      
+			        <input name="codigo" type="hidden" value="${produto.codigo}" />      
 		            <div class="form-group">   
 		              <div class="row">
 		                <div class="col-xs-12">

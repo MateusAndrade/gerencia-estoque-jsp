@@ -62,4 +62,16 @@ public class ServletRequisicao extends HttpServlet {
 		}
 	}
 	
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			reqDao.cancelaRequisicao(Integer.parseInt(request.getParameter("codigo")));
+		} catch (NumberFormatException e) {
+			System.out.println("Número invalido");
+			e.printStackTrace();
+		} catch (SQLException e) {
+			System.out.println("Erro SQL: "+e);
+			e.printStackTrace();
+		}
+	}
+	
 }

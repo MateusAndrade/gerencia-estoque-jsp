@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
@@ -58,29 +59,36 @@
 		        </div>
 		        	
 		        <div class="col-xs-12">
-		          <table id="table-caixa" class="table table-bordered">
-		            <caption>Produtos com maior Saída de Caixa:</caption>
-		            <tr>
-		              <th colspan="5">
-		                <div style='width:100%;' class="input-group">
-		                  <span class="input-group-addon">Nome:</span>
-		                  <input id="filtroCaixa" type="text" class="form-control" placeholder="Pesquisar Produtos por Nome:">
-		                  <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-		                </div>
-		              </th>
-		            </tr>
-		            <tr class="success">
-		              <th>ID:</th>
-		              <th>Produto:</th>
-		              <th>Saída:</th>
-		              <th>Quantidade:</th>
-		            </tr>
-		            <tbody>
+		          <table class="table table-bordered">
+		          	<thead>
+			            <caption class="text-success">Produtos com maior Saída de Caixa:</caption>
+			            <tr>
+			              <th colspan="5">
+			                <div style='width:100%;' class="input-group">
+			                  <span class="input-group-addon">Nome:</span>
+			                  <input id="filtroCaixa" type="text" class="form-control" placeholder="Pesquisar Produtos por Nome:">
+			                  <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+			                </div>
+			              </th>
+			            </tr>
+			            <tr class="success">
+			              <th>ID:</th>
+			              <th>Produto:</th>
+			              <th>Saída:</th>
+			              <th>Quantidade:</th>
+			            </tr>		          	
+		          	</thead>
+		            <tbody id="table-caixa" >
 		            <c:forEach items="${requisicoes}" var="req" >
 		                <tr class="requisicao"> 	                
 		                    <td><c:out value="${req.prod.codigo}" /></td> 
 		                    <td><c:out value="${req.prod.nome}" /></td>
-		                    <td >R$ <span class="preco-req"><c:out value="${req.prod.preco}" /></span></td>
+		                    <td>
+		                     	<span class="preco-req">
+			                  		<fmt:setLocale value="pt_BR"/>
+									<fmt:formatNumber value="${req.prod.preco}" type="currency"/>
+								</span> 
+		                    </td>
 		                    <td><c:out value="${req.qtd_requisicao}" /></td> 
 		                </tr>
 		            </c:forEach>		            
@@ -91,30 +99,36 @@
 		        
 		        <div class="col-xs-12">
 		          <table class="table table-bordered">
-		            <caption>Produtos com Estoque baixo:</caption>
-		            <tr>
-		              <th colspan="5">
-		                <div style='width:100%;' class="input-group">
-		                  <span class="input-group-addon">Nome:</span>
-		                  <input type="text" class="form-control" placeholder="Pesquisar Produtos por Nome:">
-		                  <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-		                </div>
-		              </th>
-		            </tr>
-		            <tr class="danger">
-		              <th>ID:</th>
-		              <th>Produto:</th>
-		              <th>Preço:</th>
-		              <th>Quantidade:</th>
-		            </tr>
+		          	<thead>
+			            <caption class="text-danger">Produtos com Estoque baixo:</caption>
+			            <tr>
+			              <th colspan="5">
+			                <div style='width:100%;' class="input-group">
+			                  <span class="input-group-addon">Nome:</span>
+			                  <input id="filtroProduto" type="text" class="form-control" placeholder="Pesquisar Produtos por Nome:">
+			                  <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+			                </div>
+			              </th>
+			            </tr>
+			            <tr class="danger">
+			              <th>ID:</th>
+			              <th>Produto:</th>
+			              <th>Preço:</th>
+			              <th>Quantidade:</th>
+			            </tr>		          	
+		          	</thead>
+					<tbody id="table-produto">
 		            <c:forEach items="${produtos}" var="produto" >
 		                <tr> 	                
 		                    <td><c:out value="${produto.codigo}" /></td> 
 		                    <td><c:out value="${produto.nome}" /></td>
-		                    <td>R$ <c:out value="${produto.preco}" /></td>
+		                    <td>
+		                   		<fmt:formatNumber value="${produto.preco}" type="currency"/>
+		                    </td>
 		                    <td><c:out value="${produto.quantidade}" /></td> 
 		                </tr>
-		            </c:forEach>
+		            </c:forEach>					
+					</tbody>
 		          </table>
 		        </div>		        
 		
@@ -129,15 +143,25 @@
 		    
 		    <script>
 		    	
-			    var $rows = $('#table-caixa tr');
+			    var $req = $('#table-caixa tr');
 			    $('#filtroCaixa').keyup(function() {
 			        var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
 			        
-			        $rows.show().filter(function() {
+			        $req.show().filter(function() {
 			            var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
 			            return !~text.indexOf(val);
 			        }).hide();
 			    });
+			    
+			    var $prod = $('#table-produto tr');
+			    $('#filtroProduto').keyup(function() {
+			        var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+			        
+			        $prod.show().filter(function() {
+			            var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+			            return !~text.indexOf(val);
+			        }).hide();
+			    });			    
 			    
 		    </script>
 
