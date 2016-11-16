@@ -9,7 +9,7 @@ import estoque.model.Produto;
 public interface IFuncionarioDAO {
 
 	public void adicionarFuncionario( Funcionario func ) throws SQLException;
-	public void excluirFuncionario( int codigo ) throws SQLException;
+	public void excluirFuncionario( Funcionario func ) throws SQLException;
 	public void consultarFuncionario( String nome ) throws SQLException;
 	public void alterarFuncionario( Funcionario func ) throws SQLException;
 	public List<Funcionario> retornaFuncionarios ( ) throws SQLException;

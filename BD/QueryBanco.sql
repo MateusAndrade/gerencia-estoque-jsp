@@ -32,12 +32,6 @@ CREATE TABLE requisicao(
     FOREIGN KEY( codigo_produto ) REFERENCES produtos( codigo_produto )
 )
 
-INSERT INTO requisicao( codigo_funcionario, codigo_produto, qtd_requisicao, data_requisicao, hora_requisicao, status_requisicao)
-VALUES ( 1 , 1, 5 , CURDATE() , TIME(SYSDATE()) ,'P');
-
-INSERT INTO requisicao( codigo_funcionario, codigo_produto, qtd_requisicao, data_requisicao, hora_requisicao, status_requisicao)
-VALUES ( 1 , 2, 20 , CURDATE() , TIME(SYSDATE()) ,'P');
-
 DROP PROCEDURE IF EXISTS inserirFuncionario;
 
 DELIMITER //
@@ -48,15 +42,15 @@ BEGIN
     VALUES(nome,cpf,rg,fone,email,senha);
 END//
 
-/*CALL inserirFuncionario('Ana','111123','112113','11213','email@yahoo',21);*/
+CALL inserirFuncionario('Mateus','121123','102113','12213','email@yahoo',22);
 
-DROP PROCEDURE IF EXISTS excluirFuncionario();
+DROP PROCEDURE IF EXISTS excluirFuncionario;
 
 DELIMITER //
 
 CREATE PROCEDURE excluirFuncionario( IN cod INT )
 BEGIN
-	DELETE FROM funcionarios WHERE codigo_funcionario = 4;
+	DELETE FROM funcionarios WHERE codigo_funcionario = cod;
 END//
 
 /*CALL excluirFuncionario(2);*/

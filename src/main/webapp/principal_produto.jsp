@@ -65,7 +65,8 @@
 			            <tr class="info">
 			              <th>ID:</th>
 			              <th>Produto:</th>
-			              <th>Quantidade:</th>
+			              <th>Preço:</th>
+        			      <th>Quantidade:</th>
 			              <th>Alterar:</th>
 			              <th>Deletar:</th>
 			            </tr>		          	
@@ -79,6 +80,7 @@
 									<fmt:setLocale value="pt_BR"/>
 									<fmt:formatNumber value="${produto.preco}" type="currency"/> 
 			                    </td> 
+			                    <td><c:out value="${produto.quantidade}" /></td>
 			                    <td>
 					               <a href="AtualizaProduto?codigo=${produto.codigo}" class="btn btn-info btn-block alterar" name="button">
 					               Alterar Produto
@@ -144,7 +146,7 @@
    	    
 		<c:when test="${sessionScope.usuario == null}">
 			<h1 class="text-center"><c:out value="Você não possui acesso a esta opção."></c:out></h1>
-			<h2 class="text-center">Por favor, faça seu <a href="login.jsp">Login</a> e tente novamente.</h2>
+			<h2 class="text-center">Por favor, faça seu <a href="login">Login</a> e tente novamente.</h2>
 		</c:when>
 	    
 	</c:choose>  

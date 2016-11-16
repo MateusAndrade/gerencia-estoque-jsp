@@ -96,7 +96,7 @@
 		        </div>
 		
 		        <div class="col-xs-6">
-		          <a href="cadastraProduto" class="btn btn-success btn-block" name="button"><p>Cadastrar Produto</p><p><i class="glyphicon glyphicon-plus"></i></p></a>
+		          <a href="cadastraFuncionario" class="btn btn-success btn-block" name="button"><p>Cadastrar Funcionário</p><p><i class="glyphicon glyphicon-plus"></i></p></a>
 		        </div>
 		
 		        <div class="col-xs-6">
@@ -120,6 +120,20 @@
 	</c:choose>  
 	
 	<script>
+	
+		$(document).on("click",".excluir",function(){
+			var codigo = $(this).find("span").eq(0).text().trim();
+	        $.ajax({
+	            url: 'ControllerFuncionario?codigo='+codigo,
+	            type: 'delete',
+	            success: function(result) {
+	            	alert("Funcionário Excluido com Suceso.");
+	            	location.reload();
+	            }, error:function(result){
+	            	alert("Ocorreu um Erro ao Excluir: "+ result);
+	            }
+	        });     
+		});   
 
 	    var $func = $('#table-func tr');
 	    $('#filtroFunc').keyup(function() {

@@ -23,9 +23,12 @@ public class FuncionarioDAOImpl implements IFuncionarioDAO {
 	}
 
 	@Override
-	public void excluirFuncionario(int codigo) throws SQLException {
-		// TODO Auto-generated method stub
-		
+	public void excluirFuncionario(Funcionario func) throws SQLException {
+		String sql = "CALL excluirFuncionario(?);";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1,func.getCodigo());
+		ps.execute();
+		ps.close();
 	}
 
 	@Override

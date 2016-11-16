@@ -74,7 +74,7 @@
 			            <tr class="success">
 			              <th>ID:</th>
 			              <th>Produto:</th>
-			              <th>Saída:</th>
+			              <th>Valor Saída:</th>
 			              <th>Quantidade:</th>
 			            </tr>		          	
 		          	</thead>
