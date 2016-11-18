@@ -79,9 +79,9 @@
 			                    <td><c:out value="${funcionario.telefone}" /></td>
 			                    <td><c:out value="${funcionario.email}" /></td>
 					            <td>
-					               <button class="btn btn-info btn-block alterar" name="button">
-					               Alterar Funcionário <span class="hidden codigo" name="codigo"><c:out value="${funcionario.codigo}"/></span>
-					               <i style="margin-left:5px;" class="glyphicon glyphicon-pencil"></i></button>
+					               <a href="AtualizaFuncionario?codigo=${funcionario.codigo}" class="btn btn-info btn-block alterar" name="button">
+					               Alterar Funcionário
+					               <i style="margin-left:5px;" class="glyphicon glyphicon-pencil"></i></a>
 					            </td>
 					            <td>
 					               <button class="btn btn-danger btn-block excluir" name="button">

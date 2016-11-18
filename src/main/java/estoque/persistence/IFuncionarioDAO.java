@@ -14,5 +14,6 @@ public interface IFuncionarioDAO {
 	public void alterarFuncionario( Funcionario func ) throws SQLException;
 	public List<Funcionario> retornaFuncionarios ( ) throws SQLException;
 	public Funcionario verificaLogin( Funcionario func ) throws SQLException;
+	public Funcionario retornaFuncionario( int cod ) throws SQLException;
 	
 }

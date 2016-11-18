@@ -50,7 +50,7 @@
 		        <div class="col-xs-12">
 		          <ol class="breadcrumb">
 		            <li><a href="home">Home</a></li>
-		            <li><a href="RetornaProdutos">Funcionário</a></li>
+		            <li><a href="RetornaFuncionarios">Funcionário</a></li>
 		            <li class="active"><a href="#">Cadastrar Funcionário</a></li>
 		          </ol>
 		        </div>
@@ -105,7 +105,7 @@
 		            
 		            <div class="form-group">
 		            	
-		              <input type="text" value="${funcionario.senha}"/>	
+		              <input type="hidden" id="senha_oculta" value="${funcionario.senha}"/>	
 		            
 		              <div class="row">
 		                <div class="col-xs-6">
@@ -176,8 +176,7 @@
 			if($("#senha").val() === $("#senha1").val()){
 				$("#cadastrar").prop("disabled", false)
 				console.log($("#senha1").val());			
-			}
-			
+			}			
 		});
 		
 	

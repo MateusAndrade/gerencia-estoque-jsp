@@ -8,7 +8,7 @@ CREATE TABLE funcionarios(
     cpf_funcionario VARCHAR(20) NOT NULL UNIQUE,
     rg_funcionario VARCHAR(20)	NOT NULL,
     telefone_funcionario VARCHAR(15),
-    email_funcionario VARCHAR(50) NOT NULL,
+    email_funcionario VARCHAR(50) NOT NULL UNIQUE,
     senha INT NOT NULL
 )
 
@@ -88,7 +88,7 @@ BEGIN
 	SELECT codigo_funcionario,nome_funcionario,cpf_funcionario,email_funcionario FROM funcionarios;
 END//
 
-/*CALL consultarFuncionarioTabela();*/
+CALL consultarFuncionarioTabela();
 
 DROP PROCEDURE IF EXISTS updateFuncionario;
 
@@ -99,7 +99,7 @@ BEGIN
 	UPDATE funcionarios
     SET nome_funcionario = nome, cpf_funcionario = cpf , rg_funcionario = rg, telefone_funcionario = fone, email_funcionario = email, senha = senha
     WHERE codigo_funcionario = codigo;
-END//funcionariosfuncionariosfuncionarios
+END//
 
 DROP PROCEDURE IF EXISTS consultarFuncionarioLogin;
 

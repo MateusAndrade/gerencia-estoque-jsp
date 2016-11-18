@@ -98,4 +98,23 @@ public class FuncionarioDAOImpl implements IFuncionarioDAO {
 		}
 	}
 
+	@Override
+	public Funcionario retornaFuncionario(int cod) throws SQLException {
+		Funcionario func = new Funcionario();
+		String sql = "SELECT * FROM funcionarios WHERE codigo_funcionario = ?";
+		PreparedStatement ps =  con.prepareStatement(sql);
+		ps.setInt(1, cod);
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()){
+			func.setCodigo((rs.getInt("codigo_funcionario")));
+			func.setNome((rs.getString("nome_funcionario")));
+			func.setCpf((rs.getString("cpf_funcionario")));
+			func.setRg((rs.getString("rg_funcionario")));
+			func.setEmail((rs.getString("email_funcionario")));
+			func.setTelefone((rs.getString("telefone_funcionario")));
+			func.setSenha((rs.getInt("senha")));		
+		}
+		return func;
+	}
+
 }
