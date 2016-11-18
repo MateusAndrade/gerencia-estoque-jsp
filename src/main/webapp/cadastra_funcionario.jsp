@@ -11,12 +11,13 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" media="screen" title="no title">
     <link rel="stylesheet" href="css/vanilla.css" media="screen" title="no title">
     <script src="js/jquery.js" charset="utf-8"></script>
+    <script src="js/jquery.mask.js"></script>
     <script src="js/bootstrap.min.js" charset="utf-8"></script>
   </head>
   <body>
   
   	<c:choose> 
-		<c:when test="${sessionScope.usuario != null}">
+		<c:when test="${sessionScope.usuario == null}">
  		    <c:set var="produto" scope="request" value="${produto}"/>	
 		    <nav class="navbar navbar-default navbar-fixed-top navbar-cor">
 		      <div class="container-fluid">
@@ -57,19 +58,21 @@
 		        <div class="col-xs-12">
 				   <c:choose>
 				      <c:when test="${funcionario == null}">
-				          <form action="ControllerProduto" method="post">				      
+				          <form action="ControllerFuncionario" method="post">				      
 				      </c:when>
 				
 				      <c:otherwise>
-				          <form action="AtualizaProduto" method="post">
+				          <form action="AtualizaFuncionario" method="post">
 				      </c:otherwise>
-				    </c:choose>	    
-			        <input name="codigo" type="hidden" value="${produto.codigo}" />      
+				      
+				    </c:choose>	 
+				       
+			        <input name="codigo" type="hidden" value="${funcionario.codigo}" />      
 		            <div class="form-group">   
 		              <div class="row">
 		                <div class="col-xs-12">
 		                  <label for="nome">Nome:</label>
-		                  <input value="${produto.nome}" required type="text" class="form-control" name="nome" placeholder="Insira um Nome para o Produto:">
+		                  <input maxlength="50" value="${funcionario.nome}" required type="text" class="form-control" name="nome" placeholder="Insira um Nome para o Funcionário">
 		                </div>
 		              </div>
 		            </div>
@@ -77,15 +80,41 @@
 		            <div class="form-group">
 		              <div class="row">
 		                <div class="col-xs-6">
-		                  <label for="quantidade">Quantidade:</label>
-		                  <input value="${produto.quantidade}" required type="number" class="form-control" name="quantidade" placeholder="Insira uma Quantidade:">
+		                  <label for="quantidade">CPF:</label>
+		                  <input maxlength="20" value="${funcionario.cpf}" id="cpf" required type="text" class="form-control" name="cpf" placeholder="Insira um CPF para o Funcionário:">
 		                </div>
 		                <div class="col-xs-6">
-			              <label for="preco">Preço:</label>
-		                  <div style='width:100%;' class="input-group">
-		                  <span class="input-group-addon"><strong>R$</strong></span>
-		    	              <input value="${produto.preco}" required type="text" class="form-control" name="preco" placeholder="Insira um Preço">
-		    	           </div>
+			              <label for="rg">RG:</label>
+		    	          <input maxlength="20" value="${funcionario.rg}" required type="text" class="form-control" name="rg" placeholder="Insira um RG para o Funcionário:">
+		                </div>    
+		              </div>
+		            </div>
+		            
+		            <div class="form-group">
+		              <div class="row">
+		                <div class="col-xs-6">
+		                  <label for="quantidade">Telefone:</label>
+		                  <input maxlength="15" value="${funcionario.telefone}" required type="text" class="form-control" name="telefone" id="telefone" placeholder="Insira um Telefone para o Funcionário:">
+		                </div>
+		                <div class="col-xs-6">
+			              <label for="rg">Email:</label>
+		    	          <input maxlength="50" value="${funcionario.email}" required type="email" class="form-control" name="email" placeholder="Insira um Email para o Funcionário:">
+		                </div>    
+		              </div>
+		            </div>
+		            
+		            <div class="form-group">
+		            	
+		              <input type="text" value="${funcionario.senha}"/>	
+		            
+		              <div class="row">
+		                <div class="col-xs-6">
+		                  <label for="quantidade">Senha:</label>
+		                  <input required type="password" class="form-control" name="cpf" placeholder="Insira uma Senha para o Funcionário:">
+		                </div>
+		                <div class="col-xs-6">
+			              <label for="rg">Confirmação de Senha:</label>
+		    	          <input required type="password" class="form-control" name="senha" placeholder="Confirme a Senha para o Funcionário:">
 		                </div>    
 		              </div>
 		            </div>
@@ -95,12 +124,12 @@
 		                <div class="col-xs-6">
 		                  <button type="submit" class="btn btn-success btn-block">
 						    <c:choose>
-						      <c:when test="${produto == null}">
-				                  <p>Cadastrar Produto</p><p><i class="glyphicon glyphicon-ok"></i></p>						      
+						      <c:when test="${funcionario == null}">
+				                  <p>Cadastrar Funcionário</p><p><i class="glyphicon glyphicon-ok"></i></p>						      
 						      </c:when>
 						
 						      <c:otherwise>
-				                  <p>Alterar Produto</p><p><i class="glyphicon glyphicon-ok"></i></p>
+				                  <p>Alterar Funcionário</p><p><i class="glyphicon glyphicon-ok"></i></p>
 						      </c:otherwise>
 						    </c:choose>
 		                  </button>
@@ -126,12 +155,24 @@
 
 		</c:when>	
 
-		<c:when test="${sessionScope.usuario == null}">
+		<c:when test="${sessionScope.usuario != null}">
 			<h1 class="text-center"><c:out value="Você não possui acesso a esta opção."></c:out></h1>
 			<h2 class="text-center">Por favor, faça seu <a href="login.jsp">Login</a> e tente novamente.</h2>
 		</c:when>
 	    
 	</c:choose>  
+	
+	<script>
+		
+		$(document).ready(function(){
+			
+			$('#telefone').mask('(00) 00000-0000');
+			
+			$('#cpf').mask('000.000.000-00', {reverse: true});
+			
+		});
+	
+	</script>
 
   </body>
 </html>

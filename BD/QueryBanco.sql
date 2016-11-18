@@ -42,7 +42,7 @@ BEGIN
     VALUES(nome,cpf,rg,fone,email,senha);
 END//
 
-CALL inserirFuncionario('Mateus','121123','102113','12213','email@yahoo',22);
+/*CALL inserirFuncionario('Lucas','141.912.004-29','32.643.791-5','12213','email@mateus',22);*/
 
 DROP PROCEDURE IF EXISTS excluirFuncionario;
 
@@ -97,9 +97,9 @@ DELIMITER //
 CREATE PROCEDURE updateFuncionario(IN codigo INT, IN nome VARCHAR(50), IN cpf VARCHAR(20), IN rg VARCHAR(20), IN fone VARCHAR(15), IN email VARCHAR(50), IN senha INT)
 BEGIN
 	UPDATE funcionarios
-    SET nome_funcionario = nome, cpf_funcionario = cpf , rg_funcionario = rg, rg_funcionario = fone, email_funcionario = email, senha = senha
+    SET nome_funcionario = nome, cpf_funcionario = cpf , rg_funcionario = rg, telefone_funcionario = fone, email_funcionario = email, senha = senha
     WHERE codigo_funcionario = codigo;
-END//
+END//funcionariosfuncionariosfuncionarios
 
 DROP PROCEDURE IF EXISTS consultarFuncionarioLogin;
 

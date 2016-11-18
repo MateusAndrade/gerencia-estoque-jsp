@@ -24,11 +24,25 @@ public class ServletFuncionario extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		System.out.println("Get");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		func.setNome(request.getParameter("nome"));
+		func.setCpf(request.getParameter("cpf"));
+		func.setRg(request.getParameter("rg"));
+		func.setTelefone(request.getParameter("telefone"));
+		func.setEmail(request.getParameter("email"));
+		func.setSenha(Integer.parseInt(request.getParameter("senha")));
+		try {
+			System.out.println("Inserindo Funcionário");
+			funcDAO.adicionarFuncionario(func);
+			response.sendRedirect("RetornaFuncionarios");
+		} catch (SQLException e) {
+			System.out.println("Ocorreu um Erro SQL:"+e);
+			e.printStackTrace();
+		}
+		
 	}
 	
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
