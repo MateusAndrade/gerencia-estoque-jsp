@@ -17,7 +17,7 @@
   <body>
   
   	<c:choose> 
-		<c:when test="${sessionScope.usuario == null}">
+		<c:when test="${sessionScope.usuario != null}">
  		    <c:set var="produto" scope="request" value="${produto}"/>	
 		    <nav class="navbar navbar-default navbar-fixed-top navbar-cor">
 		      <div class="container-fluid">
@@ -110,11 +110,11 @@
 		              <div class="row">
 		                <div class="col-xs-6">
 		                  <label for="quantidade">Senha:</label>
-		                  <input required type="password" class="form-control" name="cpf" placeholder="Insira uma Senha para o Funcionário:">
+		                  <input id="senha1" required type="password" class="form-control" name="senha1" placeholder="Insira uma Senha para o Funcionário:">
 		                </div>
 		                <div class="col-xs-6">
 			              <label for="rg">Confirmação de Senha:</label>
-		    	          <input required type="password" class="form-control" name="senha" placeholder="Confirme a Senha para o Funcionário:">
+		    	          <input id="senha" required type="password" class="form-control" name="senha" placeholder="Confirme a Senha para o Funcionário:">
 		                </div>    
 		              </div>
 		            </div>
@@ -122,7 +122,7 @@
 		            <div class="form-group">
 		              <div class="row">
 		                <div class="col-xs-6">
-		                  <button type="submit" class="btn btn-success btn-block">
+		                  <button id="cadastrar" disabled="true" type="submit" class="btn btn-success btn-block">
 						    <c:choose>
 						      <c:when test="${funcionario == null}">
 				                  <p>Cadastrar Funcionário</p><p><i class="glyphicon glyphicon-ok"></i></p>						      
@@ -134,12 +134,12 @@
 						    </c:choose>
 		                  </button>
 		                </div>
+		                
 		                <div class="col-xs-6">
 		                  <button type="exit" class="btn btn-danger btn-block"><p>Cancelar</p><p><i class="glyphicon glyphicon-remove"></i></p></button>
 		                </div>
 		              </div>
 		            </div>
-		
 		
 		          </form>
 		
@@ -155,7 +155,7 @@
 
 		</c:when>	
 
-		<c:when test="${sessionScope.usuario != null}">
+		<c:when test="${sessionScope.usuario == null}">
 			<h1 class="text-center"><c:out value="Você não possui acesso a esta opção."></c:out></h1>
 			<h2 class="text-center">Por favor, faça seu <a href="login.jsp">Login</a> e tente novamente.</h2>
 		</c:when>
@@ -171,6 +171,15 @@
 			$('#cpf').mask('000.000.000-00', {reverse: true});
 			
 		});
+		
+		$(document).on("input","#senha",function(){
+			if($("#senha").val() === $("#senha1").val()){
+				$("#cadastrar").prop("disabled", false)
+				console.log($("#senha1").val());			
+			}
+			
+		});
+		
 	
 	</script>
 
