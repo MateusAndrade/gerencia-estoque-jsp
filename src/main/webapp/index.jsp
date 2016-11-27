@@ -170,7 +170,7 @@
 	    
 		<c:when test="${sessionScope.usuario == null}">
 			<h1 class="text-center"><c:out value="Você não possui acesso a esta opção."></c:out></h1>
-			<h2 class="text-center">Por favor, faça seu <a href="login.jsp">Login</a> e tente novamente.</h2>
+			<h2 class="text-center">Por favor, faça seu <a href="login.jsp">Login</a> clicando aqui e tente novamente.</h2>
 		</c:when>
 	    
 	</c:choose>  
